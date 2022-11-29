@@ -17,10 +17,6 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
-});
-
 // routes
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
