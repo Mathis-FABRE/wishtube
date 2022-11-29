@@ -1,0 +1,89 @@
+<div class="container py-5">
+  <div class="d-flex justify-content-center">
+    <div class="col-xl-5">
+      <div class="card p-5 bg-dark text-white text-center" style="border-radius: 2em;">
+        <div class="text-center">
+          <h2 class="fw-bold mt-2 mb-5">Inscription</h2>
+        </div>
+
+        <form
+          *ngIf="!isSuccessful"
+          name="form"
+          (ngSubmit)="f.form.valid && onSubmit()"
+          #f="ngForm"
+          novalidate
+        >
+          <div class="form-outline form-white mb-4">
+            <label class="form-label" for="username">Username</label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              name="username"
+              [(ngModel)]="form.username"
+              required
+              minlength="3"
+              maxlength="20"
+              #username="ngModel"
+            />
+            <div class="alert alert-danger" *ngIf="username.errors && f.submitted">
+              <div *ngIf="username.errors['required']">Username est requis</div>
+              <div *ngIf="username.errors['minlength']">
+                3 caractères minimum
+              </div>
+              <div *ngIf="username.errors['maxlength']">
+                20 caractères maximum
+              </div>
+            </div>
+          </div>
+          <div class="form-outline form-white mb-4">
+            <label class="form-label" for="email">Email</label>
+            <input
+              type="email"
+              class="form-control form-control-lg"
+              name="email"
+              [(ngModel)]="form.email"
+              required
+              email
+              #email="ngModel"
+            />
+            <div class="alert alert-danger" *ngIf="email.errors && f.submitted">
+              <div *ngIf="email.errors['required']">Email est requis</div>
+              <div *ngIf="email.errors['email']">
+                Email doit être une adresse valide
+              </div>
+            </div>
+          </div>
+          <div class="form-outline form-white mb-4">
+            <label class="form-label" for="password">Mot de passe</label>
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              name="password"
+              [(ngModel)]="form.password"
+              required
+              minlength="6"
+              #password="ngModel"
+            />
+            <div class="alert alert-danger" *ngIf="password.errors && f.submitted">
+              <div *ngIf="password.errors['required']">Mot de passe requis</div>
+              <div *ngIf="password.errors['minlength']">
+                6 caractères minimum
+              </div>
+            </div>
+          </div>
+          <div class="form-outline form-white mb-4">
+            <button class="btn btn-outline-light btn-lg px-5">S'inscrire</button>
+          </div>
+
+          <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+            Inscription échouée<br />{{ errorMessage }}
+          </div>
+        </form>
+
+        <div class="alert alert-success" *ngIf="isSuccessful">
+          Inscription validée
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
