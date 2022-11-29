@@ -27,7 +27,7 @@ async function getter (apiName, apiPath, titlePath, idPath, urlPath, authorPath,
 
 module.exports.getter = getter;
 
-async function getterList (apiName, apiPath, videoPath, numPath, isXml = false) {
+async function getterList (apiName, apiPath, videoPath, numPath, nextPagePath = null, isXml = false) {
     let tempsRep = Date.now();
     let response = await fetch(apiPath);
     let data
@@ -39,11 +39,18 @@ async function getterList (apiName, apiPath, videoPath, numPath, isXml = false) 
     }
     tempsRep = Math.floor(Date.now() - tempsRep);
 
+    let nextPage;
+    if (nextPagePath) nextPage = valueGetter.getter(data, nextPagePath);
+    else nextPage = null;
+
     return {
-        Number: valueGetter.getter(data, numPath),
-        Video: valueGetter.getter(data, videoPath),
-        Server: apiName,
-        ResponseTime: tempsRep
+        object: {
+            Number: valueGetter.getter(data, numPath),
+            Video: valueGetter.getter(data, videoPath),
+            Server: apiName,
+            ResponseTime: tempsRep
+        },
+        nextPage: nextPage
     };
 }
 

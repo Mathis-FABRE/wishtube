@@ -5,14 +5,25 @@ function formatVideo (vids, idPath, urlPath, thumbnailPath, authorPath, titlePat
     vids.forEach(vid => {
         res.push({
             Id: valueGetter.getter(vid, idPath),
-            Url: valueGetter.getter(vid, urlPath),
+            Url: !urlPath.length ? null : valueGetter.getter(vid, urlPath),
             Thumbnail: valueGetter.getter(vid, thumbnailPath),
             Author: valueGetter.getter(vid, authorPath),
             Title: valueGetter.getter(vid, titlePath),
-            Tags: valueGetter.getter(vid, tagsPath)
+            Tags: !tagsPath ? null : valueGetter.getter(vid, tagsPath)
         });
     });
     return res;
 }
 
 module.exports.formatVideo = formatVideo;
+
+function formatVideoList (prevResult, nextResult){
+    return {
+        Number: prevResult.Number + nextResult.Number,
+        Video: prevResult.Video.concat(nextResult.Video),
+        Server: prevResult.Server,
+        ResponseTime: prevResult.ResponseTime + nextResult.ResponseTime
+    }
+}
+
+module.exports.formatVideoList = formatVideoList;
