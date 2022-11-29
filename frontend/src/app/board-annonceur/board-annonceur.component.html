@@ -1,5 +1,32 @@
 <div class="container">
-  <header class="jumbotron">
-    <p>{{ content }}</p>
-  </header>
+  <button (click)="OpenCreatePopup()">Créer</button>
+
+
+  <div class="card m-5 p-3">
+    <div class="card-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>File</th>
+          <th>Cout Par Clic</th>
+          <th>Nombre de Vues</th>
+          <th>Nombre de Clics</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let annonce of annonces">
+          <td>{{ annonce.idAnnonce }}</td>
+          <td>{{ annonce.name }}</td>
+          <td>{{ annonce.file }}</td>
+          <td>{{ annonce.coutParClic }}</td>
+          <td>{{ annonce.nbreVues }}</td>
+          <td>{{ annonce.nbreClics }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
