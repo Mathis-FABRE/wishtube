@@ -74,7 +74,7 @@
       <div
         class="alert alert-danger"
         role="alert"
-        *ngIf="f.submitted"
+        *ngIf="f.submitted && errorInCreation"
       >
         Echec de la création de l'annonce: {{ errorMessage }}
       </div>

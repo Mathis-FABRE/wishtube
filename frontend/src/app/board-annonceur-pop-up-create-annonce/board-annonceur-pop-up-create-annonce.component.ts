@@ -16,6 +16,7 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
   errorMessage = '';
 
   selectedFile : any;
+  errorInCreation = false;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -41,6 +42,7 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
         // this.reloadPage();
       },
       error: err => {
+        this.errorInCreation = true;
         console.log(err.error.message);
       }
     });
