@@ -3,9 +3,10 @@ const valueGetter = require('./getValueHelper');
 function formatVideo (vids, idPath, urlPath, thumbnailPath, authorPath, titlePath, tagsPath) {
     let res = []
     vids.forEach(vid => {
+        const vidId = valueGetter.getter(vid, idPath)
         res.push({
-            Id: valueGetter.getter(vid, idPath),
-            Url: !urlPath.length ? null : valueGetter.getter(vid, urlPath),
+            Id: vidId,
+            Url: !urlPath.length ? `https://www.youtube.com/watch?v=${vidId}` : valueGetter.getter(vid, urlPath),
             Thumbnail: valueGetter.getter(vid, thumbnailPath),
             Author: valueGetter.getter(vid, authorPath),
             Title: valueGetter.getter(vid, titlePath),
