@@ -7,7 +7,7 @@ const jwt_decode = require('jwt-decode');
 
 exports.create = (req, res) => {
     console.log(req);
-    let nameFile = req.file.originalname.split(' ').join('_');
+    let nameFile = req.file.filename.split(' ').join('_');
     let annonce = new Annonce({
         name: req.body.name,
         file: `${req.protocol}://${req.get('host')}/images/${nameFile}`,
