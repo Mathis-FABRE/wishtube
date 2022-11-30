@@ -15,6 +15,8 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
   };
   errorMessage = '';
 
+  selectedFile : any;
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private Ref: MatDialogRef<BoardAnnonceurPopUpCreateAnnonceComponent>,
@@ -23,13 +25,26 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onFileSelected(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      this.selectedFile = fileList.item(0);
+      console.log("FileUpload -> files",this.selectedFile);
+    }
+
+    // this.selectedFile = event.target.files[0];
+  }
+
   onSubmit() {
     const { name, file, coutParClic } = this.form;
 
-    this.annoncesService.createAnnonce( name, file, coutParClic).subscribe({
+    console.log(this.form.file.data);
+
+    this.annoncesService.createAnnonce( name, this.selectedFile, coutParClic).subscribe({
       next: res => {
         console.log(res);
-        this.reloadPage();
+        // this.reloadPage();
       },
       error: err => {
         console.log(err.error.message);
@@ -39,5 +54,9 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+  }
+
+  onNoClick(): void {
+    this.Ref.close();
   }
 }

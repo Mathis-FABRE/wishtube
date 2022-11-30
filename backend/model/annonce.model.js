@@ -4,10 +4,6 @@ var AutoIncrement = require('mongoose-sequence')(mongoose);
 const AnnonceSchema = new mongoose.Schema({
         idAnnonce: Number,
         name: String,
-        // file:{
-        //     data: Buffer,
-        //     contentType: String
-        // },
         file: String,
         dateCreation: {type: Date, default: Date.now},
         coutParClic: Number,

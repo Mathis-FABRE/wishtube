@@ -37,9 +37,15 @@ export class BoardAnnonceurComponent {
   }
 
   OpenCreatePopup() {
-    const popup= this.matdialog.open(BoardAnnonceurPopUpCreateAnnonceComponent,{width:'60%',
+    const popup= this.matdialog.open(BoardAnnonceurPopUpCreateAnnonceComponent,{/*width:'60%',
       enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms'
+      exitAnimationDuration:'500ms'*/
+      position: {
+        top: '-450px',
+        left: '50px'
+      },
+      panelClass: 'filter-popup',
+      hasBackdrop: true
     });
     popup.afterClosed().subscribe(item=>{
       console.log(item);

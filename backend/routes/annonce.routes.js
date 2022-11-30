@@ -1,5 +1,7 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/annonce.controller");
+const multer = require('../middlewares/multer-config');
+
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -12,7 +14,7 @@ module.exports = function(app) {
 
     app.post(
         "/api/annonce/create",
-        [authJwt.verifyToken, authJwt.isAnnonceur],
+        [authJwt.verifyToken, authJwt.isAnnonceur, multer],
         controller.create
     );
 

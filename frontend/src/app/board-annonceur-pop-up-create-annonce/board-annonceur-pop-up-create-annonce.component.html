@@ -1,79 +1,83 @@
-<p>board-annonceur-pop-up-create-annonce works!</p>
-<form
-  name="form"
-  (ngSubmit)="f.form.valid && onSubmit()"
-  #f="ngForm"
-  novalidate
->
-  <div class="form-outline form-white mb-4">
-    <label class="form-label" for="name">Nom de l'annonce</label>
-    <input
-      type="text"
-      class="form-control form-control-lg"
-      name="name"
-      [(ngModel)]="form.name"
-      required
-      #name="ngModel"
-    />
-    <div
-      class="alert alert-danger"
-      role="alert"
-      *ngIf="name.errors && f.submitted"
-    >
-      Un nom pour l'annonce est requis!
+<div class="container">
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-outline form-white mb-4">
+      <label class="form-label" for="name">Nom de l'annonce</label>
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        name="name"
+        [(ngModel)]="form.name"
+        required
+        #name="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="name.errors && f.submitted"
+      >
+        Un nom pour l'annonce est requis!
+      </div>
     </div>
-  </div>
 
-  <div class="form-outline form-white mb-4">
-    <label class="form-label" for="file">Fichier</label>
-    <input
-      type="text"
-      class="form-control form-control-lg"
-      name="password"
-      [(ngModel)]="form.file"
-      required
-      #file="ngModel"
-    />
-    <div
-      class="alert alert-danger"
-      role="alert"
-      *ngIf="file.errors && f.submitted"
-    >
-      <div *ngIf="file.errors['required']">Un fichier est requis</div>
+    <div class="form-outline form-white mb-4">
+      <label class="form-label" for="file">Fichier</label>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        class="form-control form-control-lg"
+        name="file"
+        accept="image/*"
+        [(ngModel)]="form.file"
+        required
+        #file="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="file.errors && f.submitted"
+      >
+        <div *ngIf="file.errors['required']">Un fichier est requis</div>
+      </div>
     </div>
-  </div>
 
-  <div class="form-outline form-white mb-4">
-    <label class="form-label" for="coutParClic">Cout par Clic</label>
-    <input
-      type="text"
-      class="form-control form-control-lg"
-      name="coutParClic"
-      [(ngModel)]="form.coutParClic"
-      required
-      #coutParClic="ngModel"
-    />
-    <div
-      class="alert alert-danger"
-      role="alert"
-      *ngIf="coutParClic.errors && f.submitted"
-    >
-      <div *ngIf="coutParClic.errors['required']">Le cout par clic est requis</div>
+    <div class="form-outline form-white mb-4">
+      <label class="form-label" for="coutParClic">Cout par Clic</label>
+      <input
+        type="number"
+        class="form-control form-control-lg"
+        name="coutParClic"
+        [(ngModel)]="form.coutParClic"
+        required
+        #coutParClic="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="coutParClic.errors && f.submitted"
+      >
+        <div *ngIf="coutParClic.errors['required']">Le cout par clic est requis</div>
+      </div>
     </div>
-  </div>
 
-  <div class="form-outline form-white mb-4">
-    <button class="btn btn-outline-light btn-lg px-5">
-      Créer
-    </button>
-  </div>
-  <div class="form-group">
-    <div
-      class="alert alert-danger"
-      role="alert"
-      *ngIf="f.submitted"
-    >
-      Echec de la création de l'annonce: {{ errorMessage }}
+    <div class="form-outline form-white mb-4">
+      <button class="btn btn-outline-dark btn-lg px-5">
+        Créer
+      </button>
+      <button class="btn btn-outline-dark btn-lg px-5" (click)="onNoClick()">Fermer</button>
     </div>
-  </div>
-</form>
+    <div class="form-group">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted"
+      >
+        Echec de la création de l'annonce: {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</div>

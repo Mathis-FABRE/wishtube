@@ -6,9 +6,11 @@ const jwt_decode = require('jwt-decode');
 
 
 exports.create = (req, res) => {
+    console.log(req);
+    let nameFile = req.file.originalname.split(' ').join('_');
     let annonce = new Annonce({
         name: req.body.name,
-        file: req.body.file,
+        file: `${req.protocol}://${req.get('host')}/images/${nameFile}`,
         coutParClic: req.body.coutParClic,
         nbreVues: 0,
         nbreClics: 0
@@ -59,3 +61,5 @@ exports.getAllAnnoncesByAuthor = (req, res) => {
         }
     );
 };
+
+

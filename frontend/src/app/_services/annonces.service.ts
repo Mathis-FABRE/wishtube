@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:1337/api/annonce/';
@@ -19,11 +19,14 @@ export class AnnoncesService {
     return this.http.get(API_URL, { responseType: 'text' });
   }
 
-  createAnnonce(name: string, file: string, coutParClic: number): Observable<any> {
-    return this.http.post(API_URL + 'create', {
-      name,
-      file,
-      coutParClic
-    }, httpOptions);
+  createAnnonce(name: string, file: File, coutParClic: number): Observable<any> {
+
+    let formData: FormData = new FormData();
+
+    formData.append('name', name);
+    formData.append('file', file);
+    formData.append('coutParClic', coutParClic.toString());
+
+    return this.http.post(API_URL + 'create',formData);
   }
 }

@@ -15,6 +15,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { RegisterAnnonceurComponent } from './register-annonceur/register-annonceur.component';
 import { BoardAnnonceurPopUpCreateAnnonceComponent } from './board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -27,13 +28,14 @@ import {MatDialogModule} from "@angular/material/dialog";
     RegisterAnnonceurComponent,
     BoardAnnonceurPopUpCreateAnnonceComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatFormFieldModule
+    ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
