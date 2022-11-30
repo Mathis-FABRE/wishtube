@@ -6,7 +6,6 @@ const jwt_decode = require('jwt-decode');
 
 
 exports.create = (req, res) => {
-    console.log(req);
     let nameFile = req.file.filename.split(' ').join('_');
     let annonce = new Annonce({
         name: req.body.name,

@@ -30,20 +30,14 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
     let fileList: FileList | null = element.files;
     if (fileList) {
       this.selectedFile = fileList.item(0);
-      console.log("FileUpload -> files",this.selectedFile);
     }
-
-    // this.selectedFile = event.target.files[0];
   }
 
   onSubmit() {
     const { name, file, coutParClic } = this.form;
 
-    console.log(this.form.file.data);
-
     this.annoncesService.createAnnonce( name, this.selectedFile, coutParClic).subscribe({
       next: res => {
-        console.log(res);
         // this.reloadPage();
       },
       error: err => {
