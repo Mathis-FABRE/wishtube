@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AnnoncesService } from '../_services/annonces.service';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { BoardAnnonceurPopUpCreateAnnonceComponent } from '../board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
 
 @Component({
@@ -37,16 +37,11 @@ export class BoardAnnonceurComponent {
   }
 
   OpenCreatePopup() {
-    const popup= this.matdialog.open(BoardAnnonceurPopUpCreateAnnonceComponent,{/*width:'60%',
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms'*/
-      position: {
-        top: '-450px',
-        left: '50px'
-      },
-      panelClass: 'filter-popup',
-      hasBackdrop: true
-    });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    const popup= this.matdialog.open(BoardAnnonceurPopUpCreateAnnonceComponent,dialogConfig);
     popup.afterClosed().subscribe(item=>{
       console.log(item);
     });

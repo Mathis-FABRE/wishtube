@@ -16,6 +16,7 @@ import { RegisterAnnonceurComponent } from './register-annonceur/register-annonc
 import { BoardAnnonceurPopUpCreateAnnonceComponent } from './board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
         FormsModule,
         HttpClientModule,
         MatDialogModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        BrowserAnimationsModule
     ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

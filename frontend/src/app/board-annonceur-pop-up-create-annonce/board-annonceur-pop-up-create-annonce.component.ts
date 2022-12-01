@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {AnnoncesService} from "../_services/annonces.service";
 
 @Component({
@@ -20,7 +20,6 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private Ref: MatDialogRef<BoardAnnonceurPopUpCreateAnnonceComponent>,
               private annoncesService: AnnoncesService) { }
 
   ngOnInit(): void {
@@ -39,7 +38,7 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
 
     this.annoncesService.createAnnonce( name, this.selectedFile, coutParClic).subscribe({
       next: res => {
-        // this.reloadPage();
+        this.reloadPage();
       },
       error: err => {
         this.errorInCreation = true;
@@ -50,9 +49,5 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
-  }
-
-  onNoClick(): void {
-    this.Ref.close();
   }
 }
