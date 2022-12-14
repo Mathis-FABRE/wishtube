@@ -54,4 +54,4 @@ async function getterList (apiName, apiPath, videoPath, numPath, nextPagePath = 
     };
 }
 
-module.exports.getterList = getterList();
+module.exports.getterList = getterList;

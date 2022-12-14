@@ -9,7 +9,7 @@ module.exports = function (app) {
         next();
     });
 
-    app.post("api/video/list/youtube", videoController.getYoutubeList());
+    app.get("api/video/list/youtube", async () => {await videoController.getYoutubeList()});
 
-    app.post("api/video/list/dailymotion", videoController.getDailymotionList());
+    app.get("api/video/list/dailymotion", async () => {await videoController.getDailymotionList()});
 }
