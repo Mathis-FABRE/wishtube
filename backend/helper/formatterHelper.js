@@ -20,10 +20,10 @@ module.exports.formatVideo = formatVideo;
 
 function formatVideoList (prevResult, nextResult){
     return {
-        Number: prevResult.Number + nextResult.Number,
-        Video: prevResult.Video.concat(nextResult.Video),
-        Server: prevResult.Server,
-        ResponseTime: prevResult.ResponseTime + nextResult.ResponseTime
+        Number: (prevResult ? prevResult.Number : 0) + nextResult.Number,
+        Video: prevResult ? prevResult.Video.concat(nextResult.Video) : nextResult.Video,
+        Server: prevResult ? prevResult.Server : nextResult.Server,
+        ResponseTime: (prevResult ? prevResult.ResponseTime : 0) + nextResult.ResponseTime
     }
 }
 

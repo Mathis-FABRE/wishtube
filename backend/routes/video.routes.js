@@ -1,4 +1,5 @@
 const videoController = require('../controllers/video.controller');
+const ErrorHandler = require("../middlewares/ErrorHandler.js");
 
 module.exports = function (app) {
     app.use(function(req, res, next) {
@@ -9,7 +10,9 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("api/video/list/youtube", async () => {await videoController.getYoutubeList()});
+    app.use(ErrorHandler)
 
-    app.get("api/video/list/dailymotion", async () => {await videoController.getDailymotionList()});
+    app.get("/api/video/list/youtube", async (req, res, next) => {await videoController.getYoutubeList(req, res).catch(next)});
+
+    app.get("/api/video/list/dailymotion", async (req, res, next) => {await videoController.getDailymotionList(req, res).catch(next)});
 }
