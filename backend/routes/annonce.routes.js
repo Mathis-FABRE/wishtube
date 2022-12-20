@@ -19,6 +19,12 @@ module.exports = function(app) {
         controller.create
     );
 
+    app.patch(
+        "/api/annonce/changeActivationStatus",
+        [authJwt.verifyToken, authJwt.isAnnonceur, multer],
+        controller.changeActivationStatusAnnonce
+    );
+
     app.get(
         "/api/annonce",
         [authJwt.verifyToken, authJwt.isAnnonceur],

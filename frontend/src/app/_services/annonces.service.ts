@@ -29,4 +29,11 @@ export class AnnoncesService {
 
     return this.http.post(API_URL + 'create',formData);
   }
+
+  changeStatusAnnonce(idAnnonce: number): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('idAnnonce', idAnnonce.toString());
+
+    return this.http.patch(API_URL + 'changeActivationStatus',formData);
+  }
 }

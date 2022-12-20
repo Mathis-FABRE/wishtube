@@ -46,4 +46,19 @@ export class BoardAnnonceurComponent {
       console.log(item);
     });
   }
+
+  ChangeAnnonceStatus(annonce: any) {
+    this.annoncesService.changeStatusAnnonce(annonce.idAnnonce).subscribe({
+      next: res => {
+        this.reloadPage();
+      },
+      error: err => {
+        console.log(err.error.message);
+      }
+    });
+  }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
 }

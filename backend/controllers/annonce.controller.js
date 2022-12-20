@@ -63,3 +63,29 @@ exports.getAllAnnoncesByAuthor = (req, res) => {
 };
 
 
+exports.changeActivationStatusAnnonce = (req, res) => {
+    let jwt = jwt_decode(req.headers["x-access-token"]);
+    User.findOne(
+        {
+            _id: {$in: jwt.id}
+        },
+        (err, user) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+            const filter = {auteur: user._id, idAnnonce: req.body.idAnnonce}
+            const newValue = [ { "$set": { active: { "$eq": [false, "$active"] } } } ];
+            Annonce.updateOne(filter, newValue, (err, annonce) => {
+                if (err) {
+                    res.status(500).send({ message: err });
+                    return;
+                }
+
+                console.log("test");
+
+                res.send({ message: annonce});
+            });
+        }
+    );
+};
