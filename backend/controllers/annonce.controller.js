@@ -3,13 +3,21 @@ const User = db.user;
 const Role = db.role;
 const Annonce = db.annonce;
 const jwt_decode = require('jwt-decode');
-
+const fs = require('fs');
 
 exports.create = (req, res) => {
     let nameFile = req.file.filename.split(' ').join('_');
+    // let annonce = new Annonce({
+    //     name: req.body.name,
+    //     file: `${req.protocol}://${req.get('host')}/images/${nameFile}`,
+    //     coutParClic: req.body.coutParClic,
+    //     nbreVues: 0,
+    //     nbreClics: 0,
+    //     active: true
+    // });
     let annonce = new Annonce({
         name: req.body.name,
-        file: `${req.protocol}://${req.get('host')}/images/${nameFile}`,
+        file: `/images/${nameFile}`,
         coutParClic: req.body.coutParClic,
         nbreVues: 0,
         nbreClics: 0,
@@ -82,10 +90,39 @@ exports.changeActivationStatusAnnonce = (req, res) => {
                     return;
                 }
 
-                console.log("test");
-
                 res.send({ message: annonce});
             });
+        }
+    );
+};
+
+exports.deleteAnnonce = (req, res) => {
+    let jwt = jwt_decode(req.headers["x-access-token"]);
+    User.findOne(
+        {
+            _id: {$in: jwt.id}
+        },
+        (err, user) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+            const filter = {auteur: user._id, idAnnonce: req.body.idAnnonce}
+            Annonce.deleteOne(filter, (err, annonce) => {
+                if (err) {
+                    res.status(500).send({ message: err });
+                    return;
+                }
+            });
+
+            fs.unlink('.'+req.body.filepath, (err) => {
+                if (err) {
+                    res.status(500).send({ message: err });
+                    return;
+                }
+                //file removed
+                res.send({ message: "annonce supprimée"});
+            })
         }
     );
 };

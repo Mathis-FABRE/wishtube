@@ -25,6 +25,12 @@ module.exports = function(app) {
         controller.changeActivationStatusAnnonce
     );
 
+    app.delete(
+        "/api/annonce/delete",
+        [authJwt.verifyToken, authJwt.isAnnonceur, multer],
+        controller.deleteAnnonce
+    );
+
     app.get(
         "/api/annonce",
         [authJwt.verifyToken, authJwt.isAnnonceur],
