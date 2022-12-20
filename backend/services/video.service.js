@@ -3,7 +3,7 @@ const {formatVideo} = require("../helper/formatterHelper");
 const apiGetter = helper.apiGetter
 const formatter = helper.formatter
 
-async function getYoutubeList(term, maxRes, prevResult = null, page = "") {
+async function getYoutubeList(term, maxRes, callback, prevResult = null, page = "") {
     if (prevResult && (prevResult.Number >= maxRes || !page)) {
         prevResult.Video = formatVideo(
             prevResult.Video,
@@ -14,7 +14,8 @@ async function getYoutubeList(term, maxRes, prevResult = null, page = "") {
             ['snippet', 'title'],
             []);
 
-        return prevResult;
+        callback(prevResult);
+        return
     }
 
     let result = await apiGetter.getterList(
@@ -24,7 +25,7 @@ async function getYoutubeList(term, maxRes, prevResult = null, page = "") {
         ['pageInfo', 'resultsPerPage'],
         ['nextPageToken']);
 
-    await getYoutubeList(term, maxRes, formatter.formatVideoList(prevResult,result.object), result.nextPage);
+    await getYoutubeList(term, maxRes, callback, formatter.formatVideoList(prevResult,result.object), result.nextPage);
 }
 
 module.exports.getYoutubeList = getYoutubeList;
@@ -41,6 +42,7 @@ async function getDailymotionList(term, maxRes, callback, prevResult = null, pag
             ['tags']);
 
         callback(prevResult);
+        return
     }
 
     let result = await apiGetter.getterList(
