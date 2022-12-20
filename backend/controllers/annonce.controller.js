@@ -12,7 +12,8 @@ exports.create = (req, res) => {
         file: `${req.protocol}://${req.get('host')}/images/${nameFile}`,
         coutParClic: req.body.coutParClic,
         nbreVues: 0,
-        nbreClics: 0
+        nbreClics: 0,
+        active: true
     });
 
     let jwt = jwt_decode(req.headers["x-access-token"]);

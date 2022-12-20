@@ -13,6 +13,7 @@
           <th>Cout Par Clic</th>
           <th>Nombre de Vues</th>
           <th>Nombre de Clics</th>
+          <th>Active</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,8 @@
           <td>{{ annonce.coutParClic }}</td>
           <td>{{ annonce.nbreVues }}</td>
           <td>{{ annonce.nbreClics }}</td>
+          <td *ngIf="annonce.active">Oui</td>
+          <td *ngIf="!annonce.active">Non</td>
         </tr>
         </tbody>
       </table>

@@ -13,7 +13,8 @@ const AnnonceSchema = new mongoose.Schema({
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User"
-            }
+            },
+        active: Boolean
     });
 
 AnnonceSchema.plugin(AutoIncrement, {id:'id_annonce_seq',inc_field: 'idAnnonce'});
