@@ -58,6 +58,17 @@ export class BoardAnnonceurComponent {
     });
   }
 
+  DeleteAnnonce(annonce: any) {
+    this.annoncesService.deleteAnnonce(annonce.idAnnonce, annonce.file).subscribe({
+      next: res => {
+        this.reloadPage();
+      },
+      error: err => {
+        console.log(err.error.message);
+      }
+    });
+  }
+
   reloadPage(): void {
     window.location.reload();
   }

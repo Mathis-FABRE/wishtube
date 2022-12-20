@@ -7,14 +7,7 @@ const fs = require('fs');
 
 exports.create = (req, res) => {
     let nameFile = req.file.filename.split(' ').join('_');
-    // let annonce = new Annonce({
-    //     name: req.body.name,
-    //     file: `${req.protocol}://${req.get('host')}/images/${nameFile}`,
-    //     coutParClic: req.body.coutParClic,
-    //     nbreVues: 0,
-    //     nbreClics: 0,
-    //     active: true
-    // });
+
     let annonce = new Annonce({
         name: req.body.name,
         file: `/images/${nameFile}`,

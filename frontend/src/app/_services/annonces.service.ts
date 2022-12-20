@@ -36,4 +36,13 @@ export class AnnoncesService {
 
     return this.http.patch(API_URL + 'changeActivationStatus',formData);
   }
+
+  deleteAnnonce(idAnnonce: number, filepath: string): Observable<any> {
+    return this.http.delete(API_URL + 'delete', {
+      body: {
+        idAnnonce: idAnnonce,
+        filepath: filepath
+      }
+    });
+  }
 }
