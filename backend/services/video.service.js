@@ -29,7 +29,7 @@ async function getYoutubeList(term, maxRes, prevResult = null, page = "") {
 
 module.exports.getYoutubeList = getYoutubeList;
 
-async function getDailymotionList(term, maxRes, prevResult = null, page = 1){
+async function getDailymotionList(term, maxRes, callback, prevResult = null, page = 1){
     if (prevResult && (prevResult.Number >= maxRes || !(page-1))) {
         prevResult.Video = formatVideo(
             prevResult.Video,
@@ -40,17 +40,17 @@ async function getDailymotionList(term, maxRes, prevResult = null, page = 1){
             ['title'],
             ['tags']);
 
-        return prevResult;
+        callback(prevResult);
     }
 
     let result = await apiGetter.getterList(
         'dailymotion',
         `https://api.dailymotion.com/videos?fields=id,title,owner.username,created_time,tags,embed_url,description,thumbnail_url&limit=25&sort=visited-month&search=${term}&page=${page}`,
-        ['items'],
         ['list'],
+        ['limit'],
         ['has_more']);
 
-    await getDailymotionList(term, maxRes, formatter.formatVideoList(prevResult,result.object), page+1);
+    await getDailymotionList(term, maxRes, callback, formatter.formatVideoList(prevResult,result.object), page+1);
 }
 
 module.exports.getDailymotionList = getDailymotionList;

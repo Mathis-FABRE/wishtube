@@ -5,7 +5,9 @@ exports.getYoutubeList =  async (req, res) => {
     return res.status(200).send(data);
 }
 
-exports.getDailymotionList = async (req, res) => {
-    const data = await videoService.getDailymotionList(req.body.term, req.body.maxRes);
-    return res.status(200).send(data);
+exports.getDailymotionList = async (req, res, callback) => {
+    await videoService.getDailymotionList(req.body.term, req.body.maxRes,
+        (result) => {
+            callback(result)
+        });
 }

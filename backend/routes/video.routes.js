@@ -14,5 +14,10 @@ module.exports = function (app) {
 
     app.get("/api/video/list/youtube", async (req, res, next) => {await videoController.getYoutubeList(req, res).catch(next)});
 
-    app.get("/api/video/list/dailymotion", async (req, res, next) => {await videoController.getDailymotionList(req, res).catch(next)});
+    app.get("/api/video/list/dailymotion", async (req, res, next) => {await videoController.getDailymotionList(req, res,
+        (result) => {
+            console.log(result);
+            res.status(200).send(result);
+        })
+        .catch(next)});
 }
