@@ -1,8 +1,7 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/annonce.controller");
 const multer = require('../middlewares/multer-config');
-
-const fs = require('fs');
+const fileHelper = require("../helper/fileHelper")
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -21,8 +20,14 @@ module.exports = function(app) {
 
     app.patch(
         "/api/annonce/changeActivationStatus",
-        [authJwt.verifyToken, authJwt.isAnnonceur, multer],
+        [authJwt.verifyToken, authJwt.isAnnonceur],
         controller.changeActivationStatusAnnonce
+    );
+
+    app.post(
+        "/api/annonce/update",
+        [authJwt.verifyToken, authJwt.isAnnonceur, multer],
+        controller.updateAnnonce
     );
 
     app.delete(
@@ -37,25 +42,19 @@ module.exports = function(app) {
         controller.getAllAnnoncesByAuthor
     );
 
-/*    app.get("/images/:filename", (req, res) => {
-        const filePath = req.protocol+ "://"+ req.hostname + ":1337" + req.originalUrl;
-        console.log(filePath);
-        res.download(
-            filePath,
-            req.params.filename, // Remember to include file extension
-            (err) => {
-                if (err) {
-                    res.send({
-                        error : err,
-                        msg   : "Problem downloading the file"
-                    })
-                }
-            });
-    });*/
+    app.get("/api/images/:file", (req, res) => {
+        const fileName = req.params.file;
+        const directoryPath = __basedir + "/images/";
 
-    app.get("/images/:file", function(req, res) {
-        res.pipe(fs.createWriteStream(req.url));
+        res.sendFile(directoryPath + fileName, function(err) {
+            if (err) {
+                return res.status(500).end();
+            } else {
+                return res.status(200).end();
+            }
+        });
+
     });
 
-    // app.post("/api/annonce/delete", controller.delete);
+    app.get("/api/images", fileHelper.getListFiles);
 };

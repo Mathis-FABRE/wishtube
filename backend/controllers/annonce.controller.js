@@ -89,6 +89,60 @@ exports.changeActivationStatusAnnonce = (req, res) => {
     );
 };
 
+exports.updateAnnonce = (req, res) => {
+    let jwt = jwt_decode(req.headers["x-access-token"]);
+    User.findOne(
+        {
+            _id: {$in: jwt.id}
+        },
+        (err, user) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+            const filter = {auteur: user._id, idAnnonce: req.body.idAnnonce};
+
+            Annonce.findOne(filter, (err, precannonce) => {
+                if (err) {
+                    res.status(500).send({ message: err });
+                    return;
+                }
+
+                let newValue = req.body;
+                delete newValue.idAnnonce
+
+                if (req.file == null)
+                    delete newValue.file
+                else {
+                    newValue.file = `/images/${req.file.filename.split(' ').join('_')}`;
+
+                    fs.unlink('.'+precannonce.file, (err) => {
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return;
+                        }
+                        //file removed
+                    })
+
+                }
+
+                newValue = [ { "$set": newValue } ];
+
+                Annonce.updateOne(filter, newValue, (err, annonce) => {
+                    if (err) {
+                        res.status(500).send({ message: err });
+                        return;
+                    }
+
+                    res.send({ message: annonce});
+                });
+            });
+
+
+        }
+    );
+};
+
 exports.deleteAnnonce = (req, res) => {
     let jwt = jwt_decode(req.headers["x-access-token"]);
     User.findOne(

@@ -17,6 +17,7 @@ import { BoardAnnonceurPopUpCreateAnnonceComponent } from './board-annonceur-pop
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProfileComponent,
     BoardAnnonceurComponent,
     RegisterAnnonceurComponent,
-    BoardAnnonceurPopUpCreateAnnonceComponent
+    BoardAnnonceurPopUpCreateAnnonceComponent,
+    BoardAnnonceurPopUpUpdateAnnonceComponent
   ],
     imports: [
         BrowserModule,

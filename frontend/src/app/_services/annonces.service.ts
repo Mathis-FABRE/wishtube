@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as fs from "fs";
+import {DomSanitizer} from "@angular/platform-browser";
 
 const API_URL = 'http://localhost:1337/api/annonce/';
+const API_IMAGE_URL = 'http://localhost:1337/api/images/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,8 +22,11 @@ export class AnnoncesService {
     return this.http.get(API_URL, { responseType: 'text' });
   }
 
-  createAnnonce(name: string, file: File, coutParClic: number): Observable<any> {
+  getImageAnnonce(filename: string):Observable<Blob> {
+    return this.http.get(API_IMAGE_URL + filename, { responseType: 'blob' });
+ }
 
+  createAnnonce(name: string, file: File, coutParClic: number): Observable<any> {
     let formData: FormData = new FormData();
 
     formData.append('name', name);
@@ -31,10 +37,9 @@ export class AnnoncesService {
   }
 
   changeStatusAnnonce(idAnnonce: number): Observable<any> {
-    let formData: FormData = new FormData();
-    formData.append('idAnnonce', idAnnonce.toString());
+    let body = { idAnnonce: idAnnonce };
 
-    return this.http.patch(API_URL + 'changeActivationStatus',formData);
+    return this.http.patch(API_URL + 'changeActivationStatus',body);
   }
 
   deleteAnnonce(idAnnonce: number, filepath: string): Observable<any> {
@@ -44,5 +49,31 @@ export class AnnoncesService {
         filepath: filepath
       }
     });
+  }
+
+  updateAnnonce(idAnnonce: number, name: string, file: File, coutParClic: number): Observable<any> {
+    // let body;
+    //
+    // if (file != null)
+    //   body = {
+    //     idAnnonce: idAnnonce,
+    //     name: name,
+    //     file: file,
+    //     coutParClic: coutParClic
+    //   };
+    // else
+    //   body = {
+    //     idAnnonce: idAnnonce,
+    //     name: name,
+    //     coutParClic: coutParClic
+    //   };
+
+    let formData: FormData = new FormData();
+    formData.append('idAnnonce', idAnnonce.toString());
+    formData.append('name', name);
+    formData.append('file', file);
+    formData.append('coutParClic', coutParClic.toString());
+
+    return this.http.post(API_URL + 'update', formData);
   }
 }

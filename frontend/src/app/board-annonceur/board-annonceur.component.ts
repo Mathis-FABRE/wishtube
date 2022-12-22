@@ -3,6 +3,11 @@ import { UserService } from '../_services/user.service';
 import { AnnoncesService } from '../_services/annonces.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { BoardAnnonceurPopUpCreateAnnonceComponent } from '../board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
+import {
+  BoardAnnonceurPopUpUpdateAnnonceComponent
+} from "../board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component";
+import {DomSanitizer} from "@angular/platform-browser";
+
 
 @Component({
   selector: 'app-board-annonceur',
@@ -15,7 +20,8 @@ export class BoardAnnonceurComponent {
 
   constructor(private userService: UserService,
               private annoncesService: AnnoncesService,
-              private matdialog: MatDialog) { }
+              private matdialog: MatDialog,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.userService.getAnnonceurBoard().subscribe({
@@ -55,6 +61,25 @@ export class BoardAnnonceurComponent {
       error: err => {
         console.log(err.error.message);
       }
+    });
+  }
+
+  OpenUpdatePopup(annonce: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      form: {
+        idAnnonce: annonce.idAnnonce,
+        name: annonce.name,
+        file: annonce.file,
+        coutParClic: annonce.coutParClic
+      }
+    };
+
+    const popup= this.matdialog.open(BoardAnnonceurPopUpUpdateAnnonceComponent,dialogConfig);
+    popup.afterClosed().subscribe(item=>{
+      console.log(item);
     });
   }
 
