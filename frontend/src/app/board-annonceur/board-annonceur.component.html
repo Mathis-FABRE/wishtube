@@ -1,52 +1,10 @@
-<!--<div class="container">-->
-<!--  <button class="btn btn-outline-dark btn-lg px-5" (click)="OpenCreatePopup()">Créer</button>-->
-
-
-<!--  <div class="card m-3 p-3">-->
-<!--    <div class="card-body">-->
-<!--      <table class="table table-bordered table-striped table-hover">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--          <th>ID</th>-->
-<!--          <th>Name</th>-->
-<!--          <th>File</th>-->
-<!--          <th>Cout Par Clic</th>-->
-<!--          <th>Nombre de Vues</th>-->
-<!--          <th>Nombre de Clics</th>-->
-<!--          <th>Active</th>-->
-<!--          <th>Changer Statut Annonce</th>-->
-<!--          <th>Editer</th>-->
-<!--          <th>Supprimer</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr *ngFor="let annonce of annonces">-->
-<!--          <td>{{ annonce.idAnnonce }}</td>-->
-<!--          <td>{{ annonce.name }}</td>-->
-<!--          <td>{{ annonce.file }}</td>-->
-<!--          <td>{{ annonce.coutParClic }}</td>-->
-<!--          <td>{{ annonce.nbreVues }}</td>-->
-<!--          <td>{{ annonce.nbreClics }}</td>-->
-<!--          <span *ngIf="annonce.active; then annonceActiveBlock; else annonceNotActiveBlock" ></span>-->
-<!--          <ng-template #annonceActiveBlock>-->
-<!--            <td>Oui</td>-->
-<!--            <td><button class="btn btn-outline-dark btn-lg px-5" (click)="ChangeAnnonceStatus(annonce)">Desactiver</button></td>-->
-<!--          </ng-template>-->
-<!--          <ng-template #annonceNotActiveBlock>-->
-<!--            <td>Non</td>-->
-<!--            <td><button class="btn btn-outline-dark btn-lg px-5" (click)="ChangeAnnonceStatus(annonce)">Activer</button></td>-->
-<!--          </ng-template>-->
-<!--          <td><button class="btn btn-outline-dark btn-lg px-5" (click)="OpenUpdatePopup(annonce)">Modifier</button></td>-->
-<!--          <td><button class="btn btn-outline-dark btn-lg px-5" (click)="DeleteAnnonce(annonce)">Supprimer</button></td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--      </table>-->
-<!--    </div>-->
-
-<!--  </div>-->
-<!--</div>-->
 <div class="container">
-  <button class="btn btn-outline-dark btn-lg px-5" (click)="OpenCreatePopup()">Créer</button>
+  <button class="btn btn-outline-dark btn-lg px-5 m-3" (click)="OpenCreatePopup()">Créer</button>
+
+  <div *ngIf="annonces.length === 0; else tableAnnonces" class="text-center m-3 fw-semibold display-5">
+    Aucune Annonce n'a été créé
+  </div>
+  <ng-template #tableAnnonces>
     <table class="table table-bordered table-striped table-hover m-3 p-3">
       <thead>
       <tr>
@@ -79,4 +37,5 @@
       </tr>
       </tbody>
     </table>
+  </ng-template>
 </div>
