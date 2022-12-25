@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,9 @@ import { BoardAnnonceurComponent } from './board-annonceur/board-annonceur.compo
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { RegisterAnnonceurComponent } from './register-annonceur/register-annonceur.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { VideoComponent } from './video/video.component';
+import { VideoIndexComponent } from './video-index/video-index.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +25,16 @@ import { RegisterAnnonceurComponent } from './register-annonceur/register-annonc
     HomeComponent,
     ProfileComponent,
     BoardAnnonceurComponent,
-    RegisterAnnonceurComponent
+    RegisterAnnonceurComponent,
+    SearchBarComponent,
+    VideoComponent,
+    VideoIndexComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [authInterceptorProviders],

@@ -6,7 +6,9 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardAnnonceurComponent } from './board-annonceur/board-annonceur.component';
-import {RegisterAnnonceurComponent} from "./register-annonceur/register-annonceur.component";
+import { RegisterAnnonceurComponent } from "./register-annonceur/register-annonceur.component";
+import { VideoIndexComponent } from './video-index/video-index.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -15,6 +17,7 @@ const routes: Routes = [
   { path: 'register-annonceur', component: RegisterAnnonceurComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'annonceur', component: BoardAnnonceurComponent },
+  { path: 'video-index', component: VideoIndexComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
