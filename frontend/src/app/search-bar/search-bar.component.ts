@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {AuthService} from "../_services/auth.service";
 
@@ -9,9 +9,10 @@ import {AuthService} from "../_services/auth.service";
 })
 export class SearchBarComponent implements OnInit{
   search: FormControl
+  @Output() videosEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private authService: AuthService) {
-    this.search = new FormControl<any>('');
+    this.search = new FormControl<string>('');
   }
 
   ngOnInit() {
@@ -21,6 +22,7 @@ export class SearchBarComponent implements OnInit{
     this.authService.searchYoutube(this.search.value, 50).subscribe({
         next: data => {
           console.log(data);
+          this.videosEmitter.emit(data);
         },
         error: err => {
           console.log(err);

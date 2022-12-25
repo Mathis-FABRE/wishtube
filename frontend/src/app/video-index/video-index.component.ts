@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./video-index.component.scss']
 })
 export class VideoIndexComponent {
+  videos: string = "";
+  constructor() {
+  }
 
+  display(data: any) {
+    console.log('displaying');
+    this.videos = JSON.stringify(data);
+  }
 }
