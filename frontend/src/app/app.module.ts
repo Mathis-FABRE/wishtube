@@ -17,6 +17,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { VideoComponent } from './video/video.component';
 import { VideoIndexComponent } from './video-index/video-index.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { VideoIndexComponent } from './video-index/video-index.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

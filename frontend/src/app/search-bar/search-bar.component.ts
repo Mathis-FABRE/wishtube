@@ -9,7 +9,8 @@ import {AuthService} from "../_services/auth.service";
 })
 export class SearchBarComponent implements OnInit{
   search: FormControl
-  @Output() videosEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() videosYoutubeEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() videosDailymotionEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private authService: AuthService) {
     this.search = new FormControl<string>('');
@@ -22,12 +23,22 @@ export class SearchBarComponent implements OnInit{
     this.authService.searchYoutube(this.search.value, 50).subscribe({
         next: data => {
           console.log(data);
-          this.videosEmitter.emit(data);
+          this.videosYoutubeEmitter.emit(data);
         },
         error: err => {
           console.log(err);
         }
       }
-    )
+    );
+    this.authService.searchDailymotion(this.search.value, 50).subscribe({
+        next: data => {
+          console.log(data);
+          this.videosDailymotionEmitter.emit(data);
+        },
+        error: err => {
+          console.log(err);
+        }
+      }
+    );
   }
 }

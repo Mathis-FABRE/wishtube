@@ -45,4 +45,11 @@ export class AuthService {
       maxRes
     }, httpOptions);
   }
+
+  searchDailymotion(term: string, maxRes: number): Observable<any> {
+    return this.http.post(VIDEO_LISTING + 'dailymotion', {
+      term,
+      maxRes
+    }, httpOptions);
+  }
 }

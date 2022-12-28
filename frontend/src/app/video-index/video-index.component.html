@@ -1,3 +1,33 @@
-<app-search-bar (videosEmitter)="display($event)"></app-search-bar>
-<p>video-index works!</p>
-{{videos}}
+<app-search-bar (videosYoutubeEmitter)="displayYoutube($event)" (videosDailymotionEmitter)="displayDailymotion($event)"></app-search-bar>
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Tout</a>
+    <ng-template ngbNavContent>
+      <div class="col-md-3" *ngFor="let video of videosYoutube" style="margin: 0 0 10px 5px;">
+        <app-video [video]="video"></app-video>
+      </div>
+      <div class="col-md-3" *ngFor="let video of videosDailymotion" style="margin: 0 0 10px 5px;">
+        <app-video [video]="video"></app-video>
+      </div>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Youtube</a>
+    <ng-template ngbNavContent>
+      <div class="col-md-3" *ngFor="let video of videosYoutube" style="margin: 0 0 10px 5px;">
+        <app-video [video]="video"></app-video>
+      </div>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Dailymotion</a>
+    <ng-template ngbNavContent>
+      <div class="col-md-3" *ngFor="let video of videosDailymotion" style="margin: 0 0 10px 5px;">
+        <app-video [video]="video"></app-video>
+      </div>
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
