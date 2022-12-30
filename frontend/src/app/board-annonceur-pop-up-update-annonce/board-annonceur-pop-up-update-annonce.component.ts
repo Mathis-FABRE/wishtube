@@ -9,11 +9,6 @@ import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
   styleUrls: ['./board-annonceur-pop-up-update-annonce.component.scss']
 })
 export class BoardAnnonceurPopUpUpdateAnnonceComponent implements OnInit {
-  // form: any = {
-  //   name: null,
-  //   file: null,
-  //   coutParClic: null
-  // };
   errorMessage = '';
   newfile: any;
   selectedFile : any = null;

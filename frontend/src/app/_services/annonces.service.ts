@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as fs from "fs";
-import {DomSanitizer} from "@angular/platform-browser";
 
 const API_URL = 'http://localhost:1337/api/annonce/';
 const API_IMAGE_URL = 'http://localhost:1337/api/images/';
@@ -52,22 +50,6 @@ export class AnnoncesService {
   }
 
   updateAnnonce(idAnnonce: number, name: string, file: File, coutParClic: number): Observable<any> {
-    // let body;
-    //
-    // if (file != null)
-    //   body = {
-    //     idAnnonce: idAnnonce,
-    //     name: name,
-    //     file: file,
-    //     coutParClic: coutParClic
-    //   };
-    // else
-    //   body = {
-    //     idAnnonce: idAnnonce,
-    //     name: name,
-    //     coutParClic: coutParClic
-    //   };
-
     let formData: FormData = new FormData();
     formData.append('idAnnonce', idAnnonce.toString());
     formData.append('name', name);

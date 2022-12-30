@@ -1,6 +1,5 @@
 const db = require("../model");
 const User = db.user;
-const Role = db.role;
 const Annonce = db.annonce;
 const jwt_decode = require('jwt-decode');
 const fs = require('fs');
