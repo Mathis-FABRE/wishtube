@@ -13,6 +13,11 @@ import { BoardAnnonceurComponent } from './board-annonceur/board-annonceur.compo
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { RegisterAnnonceurComponent } from './register-annonceur/register-annonceur.component';
+import { BoardAnnonceurPopUpCreateAnnonceComponent } from './board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +27,19 @@ import { RegisterAnnonceurComponent } from './register-annonceur/register-annonc
     HomeComponent,
     ProfileComponent,
     BoardAnnonceurComponent,
-    RegisterAnnonceurComponent
+    RegisterAnnonceurComponent,
+    BoardAnnonceurPopUpCreateAnnonceComponent,
+    BoardAnnonceurPopUpUpdateAnnonceComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule
+    ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
