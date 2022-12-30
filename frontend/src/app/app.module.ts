@@ -34,17 +34,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProfileComponent,
     BoardAnnonceurComponent,
     RegisterAnnonceurComponent,
+    BoardAnnonceurPopUpCreateAnnonceComponent,
+    BoardAnnonceurPopUpUpdateAnnonceComponent,
+    VideoIndexComponent,
+    VideoComponent,
+    SearchBarComponent
   ],
     imports: [
-        BrowserModule,
-        AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MatDialogModule,
-        MatFormFieldModule,
-        BrowserAnimationsModule,
-        NgbModule
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      BrowserAnimationsModule,
+      NgbModule
     ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
