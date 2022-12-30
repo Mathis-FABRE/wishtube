@@ -17,6 +17,12 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { VideoComponent } from './video/video.component';
 import { VideoIndexComponent } from './video-index/video-index.component';
 
+import { BoardAnnonceurPopUpCreateAnnonceComponent } from './board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -28,18 +34,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProfileComponent,
     BoardAnnonceurComponent,
     RegisterAnnonceurComponent,
-    SearchBarComponent,
-    VideoComponent,
-    VideoIndexComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgbModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule,
+        NgbModule
+    ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })

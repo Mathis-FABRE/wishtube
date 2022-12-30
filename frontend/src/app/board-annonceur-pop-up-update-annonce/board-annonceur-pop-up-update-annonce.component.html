@@ -1,0 +1,85 @@
+<mat-dialog-content>
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="form-outline form-white mb-4">
+      <label class="form-label" for="name">Nom de l'annonce</label>
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        name="name"
+        [(ngModel)]="data.form.name"
+        required
+        #name="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="name.errors && f.submitted"
+      >
+        Un nom pour l'annonce est requis!
+      </div>
+    </div>
+
+    <div class="form-outline form-white mb-4">
+      <label class="form-label" for="file">Fichier</label>
+      <br/>
+      <img [src]="image" width="100px" alt="{{data.form.file.split('/')[2]}}" >
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        class="form-control form-control-lg"
+        name="file"
+        accept="image/*"
+        [(ngModel)]="this.newfile"
+        #file="ngModel"
+      />
+
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="file.errors && f.submitted"
+      >
+        <div *ngIf="file.errors['invalid']">Une image est requise</div>
+      </div>
+    </div>
+
+    <div class="form-outline form-white mb-4">
+      <label class="form-label" for="coutParClic">Cout par Clic</label>
+      <input
+        type="number"
+        class="form-control form-control-lg"
+        name="coutParClic"
+        [(ngModel)]="data.form.coutParClic"
+        required
+        #coutParClic="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="coutParClic.errors && f.submitted"
+      >
+        <div *ngIf="coutParClic.errors['required']">Le cout par clic est requis</div>
+      </div>
+    </div>
+
+    <div class="form-outline form-white mb-4">
+      <button class="btn btn-outline-dark btn-lg px-5">
+        Sauvegarder
+      </button>
+      <button class="btn btn-outline-dark btn-lg px-5" mat-button mat-dialog-close>Fermer</button>
+    </div>
+    <div class="form-group">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted && errorInCreation"
+      >
+        Echec de la création de l'annonce: {{ errorMessage }}
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>

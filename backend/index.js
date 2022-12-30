@@ -5,6 +5,8 @@ const db = require("./model");
 const dbConfig = require ("./config/db.config");
 const Role = db.role;
 
+global.__basedir = __dirname;
+
 app.use(cors([
     {origin: 'http://localhost:63342', credentials: true},
     {origin: 'http://localhost:63343', credentials: true}
@@ -20,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/video.routes')(app);
+require('./routes/annonce.routes')(app);
 
 
 const PORT = process.env.PORT || 1337;
