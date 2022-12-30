@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,11 +13,17 @@ import { BoardAnnonceurComponent } from './board-annonceur/board-annonceur.compo
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { RegisterAnnonceurComponent } from './register-annonceur/register-annonceur.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { VideoComponent } from './video/video.component';
+import { VideoIndexComponent } from './video-index/video-index.component';
+
 import { BoardAnnonceurPopUpCreateAnnonceComponent } from './board-annonceur-pop-up-create-annonce/board-annonceur-pop-up-create-annonce.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,17 +34,17 @@ import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop
     ProfileComponent,
     BoardAnnonceurComponent,
     RegisterAnnonceurComponent,
-    BoardAnnonceurPopUpCreateAnnonceComponent,
-    BoardAnnonceurPopUpUpdateAnnonceComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         MatDialogModule,
         MatFormFieldModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgbModule
     ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

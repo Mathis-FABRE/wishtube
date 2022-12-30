@@ -3,28 +3,28 @@
     <a href="#" class="navbar-brand">WishTube</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="/home" class="nav-link" routerLink="home">Home </a>
+        <a class="nav-link" routerLink="video-index">Home </a>
       </li>
       <li class="nav-item" *ngIf="showAnnonceurBoard">
-        <a href="/annonceur" class="nav-link" routerLink="annonceur">Annonceur Board</a>
+        <a class="nav-link" routerLink="annonceur">Annonceur Board</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        <a class="nav-link" routerLink="register">Sign Up</a>
       </li>
       <li class="nav-item">
-        <a href="/register-annonceur" class="nav-link" routerLink="register-annonceur">Sign Up Annonceur</a>
+        <a class="nav-link" routerLink="register-annonceur">Sign Up Annonceur</a>
       </li>
       <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
+        <a class="nav-link" routerLink="login">Login</a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        <a class="nav-link" routerLink="profile">{{ username }}</a>
       </li>
       <li class="nav-item">
         <a href class="nav-link" (click)="logout()">LogOut</a>
