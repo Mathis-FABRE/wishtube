@@ -9,8 +9,9 @@ import {AuthService} from "../_services/auth.service";
 })
 export class SearchBarComponent implements OnInit{
   search: FormControl
-  @Output() videosYoutubeEmitter: EventEmitter<any> = new EventEmitter<any>();
-  @Output() videosDailymotionEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() videoResearch: EventEmitter<any> = new EventEmitter<any>();
+  youtubeList: Array<any> = [];
+  dailymotionList: Array<any> = [];
 
   constructor(private authService: AuthService) {
     this.search = new FormControl<string>('');
@@ -19,26 +20,36 @@ export class SearchBarComponent implements OnInit{
   ngOnInit() {
   }
 
+  researchYoutube() {
+    return this.authService.searchYoutube(this.search.value, 100).subscribe({
+        next: data => {
+          this.youtubeList = data.Video;
+          console.log({youtube:this.youtubeList, dailymotion:this.dailymotionList})
+          this.videoResearch.emit({"youtube":this.youtubeList, "dailymotion":this.dailymotionList});
+        },
+        error: err => {
+          console.log(err);
+        }
+      }
+    );
+  }
+
+  researchDailymotion() {
+    return this.authService.searchDailymotion(this.search.value, 100).subscribe({
+        next: data => {
+          this.dailymotionList = data.Video;
+          console.log({youtube:this.youtubeList, dailymotion:this.dailymotionList})
+          this.videoResearch.emit({"youtube":this.youtubeList, "dailymotion":this.dailymotionList});
+        },
+        error: err => {
+          console.log(err);
+        }
+      }
+    );
+  }
+
   research() {
-    this.authService.searchYoutube(this.search.value, 50).subscribe({
-        next: data => {
-          console.log(data);
-          this.videosYoutubeEmitter.emit(data);
-        },
-        error: err => {
-          console.log(err);
-        }
-      }
-    );
-    this.authService.searchDailymotion(this.search.value, 50).subscribe({
-        next: data => {
-          console.log(data);
-          this.videosDailymotionEmitter.emit(data);
-        },
-        error: err => {
-          console.log(err);
-        }
-      }
-    );
+    this.researchYoutube();
+    this.researchDailymotion();
   }
 }

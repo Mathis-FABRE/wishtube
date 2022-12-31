@@ -1,4 +1,4 @@
-<app-search-bar (videosYoutubeEmitter)="displayYoutube($event)" (videosDailymotionEmitter)="displayDailymotion($event)"></app-search-bar>
+<app-search-bar (videoResearch)="displayVideos($event)"></app-search-bar>
 
 <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 
@@ -7,10 +7,7 @@
     <a ngbNavLink>Tout</a>
     <ng-template ngbNavContent>
       <div class="grid">
-        <div class="g-col-3" *ngFor="let video of videosYoutube">
-          <app-video [video]="video"></app-video>
-        </div>
-        <div class="g-col-3" *ngFor="let video of videosDailymotion">
+        <div class="g-col-3" *ngFor="let video of videosAll">
           <app-video [video]="video"></app-video>
         </div>
       </div>
