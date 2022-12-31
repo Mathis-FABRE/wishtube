@@ -47,7 +47,7 @@ async function getDailymotionList(term, maxRes, callback, prevResult = null, pag
 
     let result = await apiGetter.getterList(
         'dailymotion',
-        `https://api.dailymotion.com/videos?fields=id,title,owner.username,created_time,tags,embed_url,description,thumbnail_url&limit=25&sort=visited-month&search=${term}&page=${page}`,
+        `https://api.dailymotion.com/videos?fields=id,title,owner.username,created_time,tags,embed_url,description,thumbnail_url&limit=25&search=${term}&page=${page}`,
         ['list'],
         ['limit'],
         ['has_more']);
