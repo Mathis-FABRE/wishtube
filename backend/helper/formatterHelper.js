@@ -6,7 +6,7 @@ function formatVideo (vids, idPath, urlPath, thumbnailPath, authorPath, titlePat
         const vidId = valueGetter.getter(vid, idPath)
         res.push({
             Id: vidId,
-            Url: !urlPath.length ? `https://www.youtube.com/watch?v=${vidId}` : valueGetter.getter(vid, urlPath),
+            Url: !urlPath.length ? `https://www.youtube.com/embed/${vidId}` : valueGetter.getter(vid, urlPath),
             Thumbnail: valueGetter.getter(vid, thumbnailPath),
             Author: valueGetter.getter(vid, authorPath),
             Title: valueGetter.getter(vid, titlePath),
