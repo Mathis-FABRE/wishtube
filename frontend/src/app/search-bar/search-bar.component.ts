@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {AuthService} from "../_services/auth.service";
+import {VideoService} from "../_services/video.service";
 
 @Component({
   selector: 'app-search-bar',
@@ -13,7 +14,7 @@ export class SearchBarComponent implements OnInit{
   youtubeList: Array<any> = [];
   dailymotionList: Array<any> = [];
 
-  constructor(private authService: AuthService) {
+  constructor(private videoService: VideoService) {
     this.search = new FormControl<string>('');
   }
 
@@ -21,7 +22,7 @@ export class SearchBarComponent implements OnInit{
   }
 
   researchYoutube() {
-    return this.authService.searchYoutube(this.search.value, 100).subscribe({
+    return this.videoService.searchYoutube(this.search.value, 100).subscribe({
         next: data => {
           this.youtubeList = data.Video;
           console.log({youtube:this.youtubeList, dailymotion:this.dailymotionList})
@@ -35,7 +36,7 @@ export class SearchBarComponent implements OnInit{
   }
 
   researchDailymotion() {
-    return this.authService.searchDailymotion(this.search.value, 100).subscribe({
+    return this.videoService.searchDailymotion(this.search.value, 100).subscribe({
         next: data => {
           this.dailymotionList = data.Video;
           console.log({youtube:this.youtubeList, dailymotion:this.dailymotionList})
