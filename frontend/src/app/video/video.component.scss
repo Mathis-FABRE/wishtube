@@ -5,3 +5,7 @@ h5 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.thumbnail{
+  &:hover { cursor: pointer; }
+}
