@@ -9,7 +9,7 @@ async function getYoutubeList(term, maxRes, callback, prevResult = null, page = 
             prevResult.Video,
             ['id', 'videoId'],
             [],
-            ['snippet', 'thumbnails', 'high'],
+            ['snippet', 'thumbnails', 'high', 'url'],
             ['snippet', 'channelTitle'],
             ['snippet', 'title'],
             []);
