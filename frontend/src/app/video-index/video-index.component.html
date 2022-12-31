@@ -1,7 +1,9 @@
 <app-search-bar (videoResearch)="displayVideos($event)"></app-search-bar>
 
 <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-
+<div class="container">
+  <img [src]="image" style="max-width:100vw; max-height: 200px;" class="mx-auto d-block" alt="" >
+</div>
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
   <li [ngbNavItem]="1">
     <a ngbNavLink>Tout</a>
@@ -35,4 +37,4 @@
   </li>
 </ul>
 
-<div [ngbNavOutlet]="nav" class="mt-2"></div>
+<div [ngbNavOutlet]="nav" ></div>

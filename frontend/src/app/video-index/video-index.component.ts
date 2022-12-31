@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {AnnoncesService} from "../_services/annonces.service";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-video-index',
@@ -7,13 +9,37 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./video-index.component.scss'],
   providers: [NgbNavModule]
 })
-export class VideoIndexComponent {
+export class VideoIndexComponent implements OnInit {
   videosYoutube: Array<any> = [];
   videosDailymotion: Array<any> = [];
   videosAll: Array<any> = [];
+  image!:SafeUrl;
 
   active: number = 1;
-  constructor() {
+  constructor(private annoncesService: AnnoncesService,
+              private sanitizer: DomSanitizer) { }
+
+  ngOnInit(): void {
+
+    this.annoncesService.getAnnonces().subscribe(files => {
+
+      let annonceExtract: any = null;
+
+      while (annonceExtract == null || annonceExtract.name == ".gitkeep") {
+        annonceExtract = this.extractRandom(files);
+      }
+
+      this.annoncesService.getImageAnnonce(annonceExtract.name).subscribe(i => {
+        this.image = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(i));
+      });
+
+      this.annoncesService.getAnnonceByFile(annonceExtract.name).subscribe(message => {
+        let annonceDB = message.message;
+
+        this.annoncesService.updateAnnonceCount(annonceDB.idAnnonce, annonceDB.nbreVues).subscribe({});
+
+      });
+    });
   }
 
   displayVideos(data: any){
@@ -55,4 +81,5 @@ export class VideoIndexComponent {
     }
     return(result);
   }
+
 }

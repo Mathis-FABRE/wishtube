@@ -39,6 +39,33 @@ exports.create = (req, res) => {
     );
 };
 
+
+exports.getAnnonceFile = (req, res) => {
+    Annonce.findOne(
+        {
+            file: "/images/"+req.params.file
+        },
+        (err, annonce) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+
+            res.send({ message: annonce});
+        }
+    );
+};
+
+exports.getAllAnnonces = (req, res) => {
+    Annonce.find((err, annonces) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+        res.send({ message: annonces});
+    });
+};
+
 exports.getAllAnnoncesByAuthor = (req, res) => {
     let jwt = jwt_decode(req.headers["x-access-token"]);
     User.findOne(

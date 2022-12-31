@@ -42,6 +42,13 @@ module.exports = function(app) {
         controller.getAllAnnoncesByAuthor
     );
 
+    app.get("/api/annonce/:file", controller.getAnnonceFile);
+
+    app.get(
+        "/api/annonce/all",
+        controller.getAllAnnonces
+    );
+
     app.get("/api/images/:file", (req, res) => {
         const fileName = req.params.file;
         const directoryPath = __basedir + "/images/";
