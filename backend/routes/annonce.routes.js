@@ -30,6 +30,12 @@ module.exports = function(app) {
         controller.updateAnnonce
     );
 
+    app.post(
+        "/api/annonce/update/count",
+        [multer],
+        controller.updateCountAnnonce
+    );
+
     app.delete(
         "/api/annonce/delete",
         [authJwt.verifyToken, authJwt.isAnnonceur, multer],

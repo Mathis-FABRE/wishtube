@@ -169,6 +169,39 @@ exports.updateAnnonce = (req, res) => {
     );
 };
 
+exports.updateCountAnnonce = (req, res) => {
+    const filter = {idAnnonce: req.body.idAnnonce};
+
+    Annonce.findOne(filter, (err, precannonce) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+
+        let newValue;
+
+        if (req.body.nbreClics != null)
+            newValue = {
+                nbreClics : req.body.nbreClics
+            };
+        else if (req.body.nbreVues != null)
+            newValue = {
+                nbreVues : req.body.nbreVues
+            }
+
+        newValue = [ { "$set": newValue } ];
+
+        Annonce.updateOne(filter, newValue, (err, annonce) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+
+            res.send({ message: annonce});
+        });
+    });
+};
+
 exports.deleteAnnonce = (req, res) => {
     let jwt = jwt_decode(req.headers["x-access-token"]);
     User.findOne(
