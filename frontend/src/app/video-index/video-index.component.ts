@@ -14,8 +14,11 @@ export class VideoIndexComponent implements OnInit {
   videosDailymotion: Array<any> = [];
   videosAll: Array<any> = [];
   image!:SafeUrl;
+  nameFilePub !: string;
+  namePub !: string;
 
   active: number = 1;
+
   constructor(private annoncesService: AnnoncesService,
               private sanitizer: DomSanitizer) { }
 
@@ -36,9 +39,13 @@ export class VideoIndexComponent implements OnInit {
       this.annoncesService.getAnnonceByFile(annonceExtract.name).subscribe(message => {
         let annonceDB = message.message;
 
-        this.annoncesService.updateAnnonceCount(annonceDB.idAnnonce, annonceDB.nbreVues).subscribe({});
+        this.nameFilePub = (annonceDB.file).split("/")[2];
+        this.namePub = annonceDB.name;
+
+        this.annoncesService.updateAnnonceCountView(annonceDB.idAnnonce, annonceDB.nbreVues).subscribe({});
 
       });
+
     });
   }
 
@@ -82,4 +89,12 @@ export class VideoIndexComponent implements OnInit {
     return(result);
   }
 
+  newClickOnPub() {
+    this.annoncesService.getAnnonceByFile(this.nameFilePub).subscribe(message => {
+      let annonceDB = message.message;
+
+      this.annoncesService.updateAnnonceCountClick(annonceDB.idAnnonce, annonceDB.nbreClics).subscribe({});
+
+    });
+  }
 }

@@ -2,7 +2,7 @@
 
 <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
 <div class="container">
-  <img [src]="image" style="max-width:100vw; max-height: 200px;" class="mx-auto d-block" alt="" >
+  <img [src]="image" (click)="newClickOnPub()" style="max-width:100vw; max-height: 200px;" class="mx-auto d-block" alt="{{namePub}}" role="button">
 </div>
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
   <li [ngbNavItem]="1">

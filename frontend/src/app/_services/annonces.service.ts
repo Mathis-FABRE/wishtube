@@ -67,10 +67,18 @@ export class AnnoncesService {
     return this.http.post(API_URL + 'update', formData);
   }
 
-  updateAnnonceCount(idAnnonce: number, nbreVuesAvant: number): Observable<any> {
+  updateAnnonceCountView(idAnnonce: number, nbreVuesAvant: number): Observable<any> {
     let formData: FormData = new FormData();
     formData.append('idAnnonce', idAnnonce.toString());
     formData.append('nbreVues', (nbreVuesAvant + 1).toString());
+
+    return this.http.post(API_URL + 'update', formData);
+  }
+
+  updateAnnonceCountClick(idAnnonce: number, nbreClickAvant: number): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('idAnnonce', idAnnonce.toString());
+    formData.append('nbreClics', (nbreClickAvant + 1).toString());
 
     return this.http.post(API_URL + 'update', formData);
   }
