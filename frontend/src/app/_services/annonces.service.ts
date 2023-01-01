@@ -20,6 +20,14 @@ export class AnnoncesService {
     return this.http.get(API_URL, { responseType: 'text' });
   }
 
+  getAnnonces(): Observable<any> {
+    return this.http.get(API_IMAGE_URL, { responseType: 'json' });
+  }
+
+  getAnnonceByFile(filename: string): Observable<any> {
+    return this.http.get(API_URL + filename, { responseType: 'json' });
+  }
+
   getImageAnnonce(filename: string):Observable<Blob> {
     return this.http.get(API_IMAGE_URL + filename, { responseType: 'blob' });
  }
@@ -58,4 +66,21 @@ export class AnnoncesService {
 
     return this.http.post(API_URL + 'update', formData);
   }
+
+  updateAnnonceCountView(idAnnonce: number, nbreVuesAvant: number): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('idAnnonce', idAnnonce.toString());
+    formData.append('nbreVues', (nbreVuesAvant + 1).toString());
+
+    return this.http.post(API_URL + 'update/count', formData);
+  }
+
+  updateAnnonceCountClick(idAnnonce: number, nbreClickAvant: number): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('idAnnonce', idAnnonce.toString());
+    formData.append('nbreClics', (nbreClickAvant + 1).toString());
+
+    return this.http.post(API_URL + 'update/count', formData);
+  }
+
 }

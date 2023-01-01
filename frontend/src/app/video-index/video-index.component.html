@@ -1,38 +1,53 @@
 <app-search-bar (videoResearch)="displayVideos($event)"></app-search-bar>
 
 <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+<div class="container">
+  <img [src]="pubs[0].image" (click)="newClickOnPub($event)" style="max-width:100vw; max-height: 100px;" class="mx-auto d-block" alt="{{pubs[0].namePub}}" name="{{pubs[0].nameFilePub}}" role="button">
+</div>
 
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
-  <li [ngbNavItem]="1">
-    <a ngbNavLink>Tout</a>
-    <ng-template ngbNavContent>
-      <div class="grid">
-        <div class="g-col-3" *ngFor="let video of videosAll">
-          <app-video [video]="video"></app-video>
-        </div>
-      </div>
-    </ng-template>
-  </li>
-  <li [ngbNavItem]="2">
-    <a ngbNavLink>Youtube</a>
-    <ng-template ngbNavContent>
-      <div class="grid">
-        <div class="g-col-3" *ngFor="let video of videosYoutube">
-          <app-video [video]="video"></app-video>
-        </div>
-      </div>
-    </ng-template>
-  </li>
-  <li [ngbNavItem]="3">
-    <a ngbNavLink>Dailymotion</a>
-    <ng-template ngbNavContent>
-      <div class="grid">
-        <div class="g-col-3" *ngFor="let video of videosDailymotion">
-          <app-video [video]="video"></app-video>
-        </div>
-      </div>
-    </ng-template>
-  </li>
-</ul>
+<div class="row position-absolute start-0 end-0">
+  <div class="col-2">
+    <img [src]="pubs[1].image" (click)="newClickOnPub($event)" style="max-height:100%; max-width: 100%;" class="mx-auto d-block" alt="{{pubs[1].namePub}}" name="{{pubs[1].nameFilePub}}" role="button">
+  </div>
+  <div class="col-sm-8 ms-auto">
 
-<div [ngbNavOutlet]="nav" class="mt-2"></div>
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Tout</a>
+        <ng-template ngbNavContent>
+          <div class="grid">
+            <div class="g-col-3" *ngFor="let video of videosAll">
+              <app-video [video]="video"></app-video>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Youtube</a>
+        <ng-template ngbNavContent>
+          <div class="grid">
+            <div class="g-col-3" *ngFor="let video of videosYoutube">
+              <app-video [video]="video"></app-video>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Dailymotion</a>
+        <ng-template ngbNavContent>
+          <div class="grid">
+            <div class="g-col-3" *ngFor="let video of videosDailymotion">
+              <app-video [video]="video"></app-video>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" ></div>
+  </div>
+  <div class="col-2 ms-auto">
+    <img [src]="pubs[2].image" (click)="newClickOnPub($event)" style="max-height:100%; max-width: 100%;" class="mx-auto d-block" alt="{{pubs[2].namePub}}" name="{{pubs[2].nameFilePub}}" role="button">
+  </div>
+</div>
+

@@ -30,6 +30,12 @@ module.exports = function(app) {
         controller.updateAnnonce
     );
 
+    app.post(
+        "/api/annonce/update/count",
+        [multer],
+        controller.updateCountAnnonce
+    );
+
     app.delete(
         "/api/annonce/delete",
         [authJwt.verifyToken, authJwt.isAnnonceur, multer],
@@ -40,6 +46,13 @@ module.exports = function(app) {
         "/api/annonce",
         [authJwt.verifyToken, authJwt.isAnnonceur],
         controller.getAllAnnoncesByAuthor
+    );
+
+    app.get("/api/annonce/:file", controller.getAnnonceFile);
+
+    app.get(
+        "/api/annonce/all",
+        controller.getAllAnnonces
     );
 
     app.get("/api/images/:file", (req, res) => {
