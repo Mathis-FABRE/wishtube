@@ -16,7 +16,7 @@ h5 {
 }
 
 .overlay {
-  position: absolute; /* Sit on top of the page content */
+  position: absolute;
   width: 100%; /* Full width (cover the whole page) */
   height: 100%; /* Full height (cover the whole page) */
   top: 0;
@@ -25,4 +25,17 @@ h5 {
   opacity: 50%;
   z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
   visibility: hidden;
+}
+
+.big-font{
+  font-size: 4.5rem;
+  color: white;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 100%;
+  transform: translate(-2.25rem, -2.25rem);
 }
