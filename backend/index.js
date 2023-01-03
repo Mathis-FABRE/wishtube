@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 });
 
 db.mongoose
-    .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    .connect(`mongodb+srv://${dbConfig.HOST}/${dbConfig.DB}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
@@ -40,7 +40,7 @@ db.mongoose
         initial();
     })
     .catch(err => {
-        console.log(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`);
+        console.log(`mongodb+srv://${dbConfig.HOST}/${dbConfig.DB}`);
         console.error("Connection error", err);
         process.exit();
     });
