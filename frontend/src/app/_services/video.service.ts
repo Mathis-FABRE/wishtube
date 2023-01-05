@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {API_LINK} from "../_helpers/globals";
 
-const VIDEO_LISTING = API_LINK + 'api/video/list/';
+const VIDEO_LISTING = API_LINK + 'video/list/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

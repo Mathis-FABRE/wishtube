@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {AnnoncesService} from "../_services/annonces.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-board-annonceur-pop-up-create-annonce',
@@ -20,7 +21,8 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-              private annoncesService: AnnoncesService) { }
+              private annoncesService: AnnoncesService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -38,16 +40,12 @@ export class BoardAnnonceurPopUpCreateAnnonceComponent implements OnInit {
 
     this.annoncesService.createAnnonce( name, this.selectedFile, coutParClic).subscribe({
       next: res => {
-        this.reloadPage();
+        this.router.navigateByUrl('/annonceur');
       },
       error: err => {
         this.errorInCreation = true;
         console.log(err.error.message);
       }
     });
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 }

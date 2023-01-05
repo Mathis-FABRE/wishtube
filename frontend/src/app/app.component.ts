@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -12,19 +13,24 @@ export class AppComponent {
   showAnnonceurBoard = false;
   username?: string;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.router.events.subscribe(event => {
+      if (!!this.tokenStorageService.getToken()) {
+        const user = this.tokenStorageService.getUser();
+        this.roles = user.roles;
 
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
+        this.showAnnonceurBoard = this.roles.includes('ROLE_ANNONCEUR');
 
-      this.showAnnonceurBoard = this.roles.includes('ROLE_ANNONCEUR');
+        this.username = user.username;
+      }
 
-      this.username = user.username;
-    }
+      // if (event.constructor.name === "NavigationEnd") {
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
+      // }
+    })
+
   }
 
   logout(): void {

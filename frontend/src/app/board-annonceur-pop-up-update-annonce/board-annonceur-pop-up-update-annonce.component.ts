@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {AnnoncesService} from "../_services/annonces.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-board-annonceur-pop-up-update-annonce',
@@ -17,7 +18,8 @@ export class BoardAnnonceurPopUpUpdateAnnonceComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private annoncesService: AnnoncesService,
-              private sanitizer: DomSanitizer) { }
+              private sanitizer: DomSanitizer,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.annoncesService.getImageAnnonce(this.data.form.file.split("/")[2]).subscribe(i => {
@@ -41,16 +43,12 @@ export class BoardAnnonceurPopUpUpdateAnnonceComponent implements OnInit {
       this.data.form.coutParClic
     ).subscribe({
       next: res => {
-        this.reloadPage();
+        this.router.navigateByUrl('/annonceur');
       },
       error: err => {
         this.errorInCreation = true;
         console.log(err.error.message);
       }
     });
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 }
