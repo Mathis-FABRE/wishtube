@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PubComponent } from './pub/pub.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BoardAnnonceurPopUpUpdateAnnonceComponent,
     VideoIndexComponent,
     VideoComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    PubComponent
   ],
     imports: [
       BrowserModule,
