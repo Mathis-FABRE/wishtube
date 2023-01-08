@@ -7,6 +7,7 @@ import {
   BoardAnnonceurPopUpUpdateAnnonceComponent
 } from "../board-annonceur-pop-up-update-annonce/board-annonceur-pop-up-update-annonce.component";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class BoardAnnonceurComponent {
   constructor(private userService: UserService,
               private annoncesService: AnnoncesService,
               private matdialog: MatDialog,
-              private sanitizer: DomSanitizer) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getAnnonceurBoard().subscribe({
@@ -56,7 +57,7 @@ export class BoardAnnonceurComponent {
   ChangeAnnonceStatus(annonce: any) {
     this.annoncesService.changeStatusAnnonce(annonce.idAnnonce).subscribe({
       next: res => {
-        this.reloadPage();
+        this.router.navigateByUrl('/annonceur');
       },
       error: err => {
         console.log(err.error.message);
@@ -86,15 +87,11 @@ export class BoardAnnonceurComponent {
   DeleteAnnonce(annonce: any) {
     this.annoncesService.deleteAnnonce(annonce.idAnnonce, annonce.file).subscribe({
       next: res => {
-        this.reloadPage();
+        this.router.navigateByUrl('/annonceur');
       },
       error: err => {
         console.log(err.error.message);
       }
     });
-  }
-
-  reloadPage(): void {
-    window.location.reload();
   }
 }

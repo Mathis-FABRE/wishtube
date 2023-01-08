@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {API_LINK} from "../_helpers/globals";
 
-const VIDEO_LISTING = 'http://localhost:1337/api/video/list/';
+const VIDEO_LISTING = API_LINK + 'video/list/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
