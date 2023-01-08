@@ -15,4 +15,10 @@ module.exports = function(app) {
         [authJwt.verifyToken],
         controller.create
     );
+
+    app.post(
+        "/api/playlist/addVideo",
+        [authJwt.verifyToken],
+        controller.addVideo
+    );
 };
