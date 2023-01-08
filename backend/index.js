@@ -23,6 +23,7 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/video.routes')(app);
 require('./routes/annonce.routes')(app);
+require('./routes/playlist.routes')(app);
 
 
 const PORT = process.env.PORT || 1337;
