@@ -48,7 +48,7 @@ exports.create = (req, res) => {
     );
 };
 
-exports.videoInPlaylist = (req, res)  => {
+videoInPlaylist = (video, list)  => {
     // check existance video
     Video.findOne(
         {
@@ -56,21 +56,27 @@ exports.videoInPlaylist = (req, res)  => {
         },
         (err, video) => {
             if (!video){
-                res.send({message: false});
-                return;
+                return false;
             }
-            Playlist.findOne(
-                {_id: req.body.idPlaylist},
-                (err, playlist) => {
-                    if (err){
-                        res.status(500).send(err);
-                        return;
-                    }
-                    res.send({message: playlist.videos.includes(video._id)});
-                    return;
-                }
-            )
+            return list.includes(video._id);
         });
+}
+
+exports.videoInUser = (req, res) => {
+    let jwt = jwt_decode(req.headers["x-access-token"]);
+    Playlist.find({user: jwt.id}, "videos", (err, videosList) => {
+        if (err){
+            res.status(500).send({message: err});
+            return
+        }
+        videosList.forEach(videos => {
+            if (videoInPlaylist(req.Url, videos)){
+                res.send({message: true});
+                return
+            }
+        })
+        res.send({message: false});
+    })
 }
 
 exports.addVideo = (req, res) => {
