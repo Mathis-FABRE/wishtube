@@ -23,4 +23,6 @@ module.exports = function (app) {
             console.log(result);
             res.status(200).send(result);
         }).catch(next)});
+
+    app.post("/getid", videoController.getIdIfExist);
 }

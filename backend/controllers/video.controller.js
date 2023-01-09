@@ -28,6 +28,20 @@ exports.videoExists = (req, res) => {
     })
 }
 
+exports.getIdIfExist = (req, res) => {
+    videodb.find({url: req.body.url}, (err, video) => {
+        if (err){
+            res.status(500).send({message: err});
+        }
+        else if (video) {
+            res.send({message: video._id});
+        }
+        else {
+            res.send({message: null});
+        }
+    })
+}
+
 exports.createVideo = (req, res) => {
     let video = new videodb({
         url: req.body.url,
