@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {VideoService} from "../_services/video.service";
 @Component({
   selector: 'app-video',
   templateUrl: './video.component.html',
@@ -14,7 +15,7 @@ export class VideoComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.video.Url)
+    this.trustedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.video.Url);
   }
 
   showModal(content: any){

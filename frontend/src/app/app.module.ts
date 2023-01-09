@@ -25,6 +25,7 @@ import { BoardAnnonceurPopUpUpdateAnnonceComponent } from './board-annonceur-pop
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PubComponent } from './pub/pub.component';
+import { PlaylistButtonComponent } from './playlist-button/playlist-button.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PubComponent } from './pub/pub.component';
     VideoIndexComponent,
     VideoComponent,
     SearchBarComponent,
-    PubComponent
+    PubComponent,
+    PlaylistButtonComponent
   ],
     imports: [
       BrowserModule,

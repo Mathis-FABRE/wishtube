@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {API_LINK} from "../_helpers/globals";
 
 const VIDEO_LISTING = API_LINK + 'video/list/';
+const VIDEO = API_LINK + 'video/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,6 +28,12 @@ export class VideoService {
     return this.http.post(VIDEO_LISTING + 'dailymotion', {
       term,
       maxRes
+    }, httpOptions);
+  }
+
+  getVideoId(url: string): Observable<any> {
+    return this.http.post(VIDEO + "getid", {
+      url
     }, httpOptions);
   }
 }
