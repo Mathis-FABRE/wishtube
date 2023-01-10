@@ -25,4 +25,8 @@ module.exports = function(app) {
     app.post("/api/playlist/exist",
         [authJwt.verifyToken],
         controller.videoInUser);
+
+    app.post("/api/playlist/addVideoMaPlaylist",
+        [authJwt.verifyToken],
+        controller.addVideoToMaPlaylist);
 };
