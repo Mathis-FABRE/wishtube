@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {PlaylistService} from "../_services/playlist.service";
 
 @Component({
   selector: 'app-playlist-button',
@@ -9,7 +10,17 @@ export class PlaylistButtonComponent implements OnInit{
   @Input() video: any;
   isInPlaylist: boolean = false;
 
-  ngOnInit() {
+  constructor(private playlistService: PlaylistService) {
+  }
 
+  addToMaPlaylist() {
+    this.playlistService.addVideoToMaPlaylist(this.video);
+    this.isInPlaylist = true;
+  }
+
+  ngOnInit() {
+    this.playlistService.videoInUser(this.video.Url).subscribe( data => {
+      this.isInPlaylist = data.message;
+    })
   }
 }
