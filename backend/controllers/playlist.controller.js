@@ -77,7 +77,7 @@ exports.videoInUser = (req, res) => {
     })
 }
 
-addVideoToPlaylist = (newVideo, res) => {
+addVideoToPlaylist = (filter, newVideo, res) => {
     Playlist.updateOne(filter, { $push: { videos: newVideo }}, (err, playlist) => {
         if (err) {
             res.status(500).send({ message: err });
@@ -88,16 +88,16 @@ addVideoToPlaylist = (newVideo, res) => {
     });
 }
 
-createVideoIfNotExist = (video, res) => {
+createVideoIfNotExist = (filter, video, res) => {
     let newVideo;
-    Video.findOne({url: video.url}, (err, video) => {
+    Video.findOne({url: video.url}, (err, videoq) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
         }
 
         if (video != null) {
-            newVideo = video;
+            newVideo = videoq;
         } else {
             newVideo = new Video({
                 url: video.url,
@@ -113,7 +113,7 @@ createVideoIfNotExist = (video, res) => {
                 }
             });
         }
-        addVideoToPlaylist(newVideo, res);
+        addVideoToPlaylist(filter, newVideo, res);
     });
 }
 
@@ -123,22 +123,15 @@ exports.addVideo = (req, res) => {
     let jwt = jwt_decode(req.headers["x-access-token"]);
     const filter = {user: jwt.id, _id: req.body.idPlaylist};
 
-    Playlist.findOne(filter, (err, precPlaylist) => {
-        if (err) {
-            res.status(500).send({ message: err });
-            return;
-        }
+    if (req.body.video.url == null ||
+        req.body.video.thumbnail == null ||
+        req.body.video.name == null ||
+        req.body.video.author == null) {
+        res.status(500).send({ message: "video transmise incomplete" });
+        return;
+    }
 
-        if (req.body.video.url == null ||
-            req.body.video.thumbnail == null ||
-            req.body.video.name == null ||
-            req.body.video.author == null) {
-            res.status(500).send({ message: "video transmise incomplete" });
-            return;
-        }
-
-        createVideoIfNotExist(req.body.video, res);
-    });
+    createVideoIfNotExist(filter, req.body.video, res);
 };
 
 
@@ -149,22 +142,23 @@ exports.addVideoToMaPlaylist = (req, res) => {
     let jwt = jwt_decode(req.headers["x-access-token"]);
     const filter = {user: jwt.id, name: "ma playlist"};
 
-    Playlist.findOne(filter, (err, precPlaylist) => {
-        if (err) {
-            res.status(500).send({ message: err });
-            return;
-        }
+    console.log('adding to ma playlist');
+    if (req.body.url == null ||
+        req.body.thumbnail == null ||
+        req.body.name == null ||
+        req.body.author == null) {
+        res.status(500).send({ message: "video transmise incomplete" });
+        return;
+    }
 
-        if (req.body.video.url == null ||
-            req.body.video.thumbnail == null ||
-            req.body.video.name == null ||
-            req.body.video.author == null) {
-            res.status(500).send({ message: "video transmise incomplete" });
-            return;
-        }
+    const video = {
+        url: req.body.url,
+        thumbnail: req.body.thumbnail,
+        name: req.body.name,
+        author: req.body.author
+    };
 
-        createVideoIfNotExist(req.body.video, res);
-    });
+    createVideoIfNotExist(filter, video, res);
 };
 
 exports.deleteFromPlaylist = (req, res) => {

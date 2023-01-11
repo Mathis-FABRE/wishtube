@@ -26,7 +26,7 @@ module.exports = function(app) {
         [authJwt.verifyToken],
         controller.videoInUser);
 
-    app.post("/api/playlist/addVideoMaPlaylist",
+    app.post("/api/playlist/addVideoToMaPlaylist",
         [authJwt.verifyToken],
         controller.addVideoToMaPlaylist);
 };
