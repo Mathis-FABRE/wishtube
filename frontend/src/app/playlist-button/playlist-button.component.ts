@@ -14,8 +14,11 @@ export class PlaylistButtonComponent implements OnInit{
   }
 
   addToMaPlaylist() {
-    this.playlistService.addVideoToMaPlaylist(this.video);
-    this.isInPlaylist = true;
+    this.playlistService.addVideoToMaPlaylist(this.video).subscribe(data => {
+      console.log(data);
+      this.isInPlaylist = true;
+    });
+
   }
 
   ngOnInit() {

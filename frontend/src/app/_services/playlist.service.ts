@@ -23,12 +23,16 @@ export class PlaylistService {
   }
 
   addVideoToMaPlaylist(videoJson: any): Observable<any> {
-    let formData: FormData = new FormData();
-    formData.append('url', videoJson.Url);
-    formData.append('thumbnail', videoJson.Thumbnail);
-    formData.append('name', videoJson.Title);
-    formData.append('author', videoJson.Author);
-    console.log(videoJson);
-    return this.http.post(PLAYLIST + "addVideoToMaPlaylist", formData);
+    let url: string = videoJson.Url;
+    let thumbnail: string = videoJson.Thumbnail;
+    let name: string = videoJson.Title;
+    let author: string = videoJson.Author;
+
+    return this.http.post(PLAYLIST + "addVideoToMaPlaylist", {
+      url,
+      thumbnail,
+      name,
+      author
+    }, httpOptions);
   }
 }

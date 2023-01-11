@@ -84,36 +84,42 @@ addVideoToPlaylist = (filter, newVideo, res) => {
             return;
         }
 
-        res.send({ message: playlist});
+        res.send({message: playlist});
     });
 }
 
-createVideoIfNotExist = (filter, video, res) => {
+callbackAjoutVideo = (err, videoq, video, filter, res) => {
     let newVideo;
+    if (err) {
+        res.status(500).send({ message: err });
+        return;
+    }
+
+    if (videoq) {
+        newVideo = videoq;
+        addVideoToPlaylist(filter, newVideo._id, res);
+    } else {
+        newVideo = new Video({
+            url: video.url,
+            thumbnail: video.thumbnail,
+            name: video.name,
+            author: video.author
+        });
+
+        newVideo.save((err, videoCreated) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+            console.log(videoCreated);
+            addVideoToPlaylist(filter, videoCreated._id, res);
+        });
+    }
+}
+
+createVideoIfNotExist = (filter, video, res) => {
     Video.findOne({url: video.url}, (err, videoq) => {
-        if (err) {
-            res.status(500).send({ message: err });
-            return;
-        }
-
-        if (video != null) {
-            newVideo = videoq;
-        } else {
-            newVideo = new Video({
-                url: video.url,
-                thumbnail: video.thumbnail,
-                name: video.name,
-                author: video.author
-            });
-
-            newVideo.save(err => {
-                if (err) {
-                    res.status(500).send({ message: err });
-                    return;
-                }
-            });
-        }
-        addVideoToPlaylist(filter, newVideo, res);
+        callbacktest(err, videoq, video, filter, res)
     });
 }
 
@@ -138,11 +144,9 @@ exports.addVideo = (req, res) => {
 
 exports.addVideoToMaPlaylist = (req, res) => {
     console.log("addind video to ma playlist");
-    console.log(req.body.video)
     let jwt = jwt_decode(req.headers["x-access-token"]);
     const filter = {user: jwt.id, name: "ma playlist"};
 
-    console.log('adding to ma playlist');
     if (req.body.url == null ||
         req.body.thumbnail == null ||
         req.body.name == null ||
