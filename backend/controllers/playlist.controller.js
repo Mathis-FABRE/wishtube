@@ -46,35 +46,27 @@ exports.create = (req, res) => {
     );
 };
 
-videoInPlaylist = (video, list)  => {
-    // check existance video
-    Video.findOne(
-        {
-        url: video // url contient un id donc unique
-        },
-        (err, video) => {
-            if (!video){
-                return false;
-            }
-            return list.includes(video._id);
-        });
+callbackPlaylist = (err, videosList, url, res) => {
+    if (err) {
+        res.status(500).send({message: err});
+        return;
+    }
+    for (const videos of videosList) {
+        if (videos.videos.includes(url)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 exports.videoInUser = (req, res) => {
+
     let jwt = jwt_decode(req.headers["x-access-token"]);
-    Playlist.find({user: jwt.id}, "videos", (err, videosList) => {
-        if (err){
-            res.status(500).send({message: err});
-            return
-        }
-        videosList.forEach(videos => {
-            if (videoInPlaylist(req.url, videos)){
-                res.send({message: true});
-                return
-            }
-        })
-        res.send({message: false});
-    })
+    Playlist.find({user: jwt.id}, {_id: 0, videos: 1},(err, videosList) => {
+        const result = callbackPlaylist(err, videosList, req.body.url, res);
+        console.log(result);
+        res.send({message: result});
+    });
 }
 
 addVideoToPlaylist = (filter, newVideo, res) => {
@@ -97,7 +89,7 @@ callbackAjoutVideo = (err, videoq, video, filter, res) => {
 
     if (videoq) {
         newVideo = videoq;
-        addVideoToPlaylist(filter, newVideo._id, res);
+        addVideoToPlaylist(filter, newVideo.url, res);
     } else {
         newVideo = new Video({
             url: video.url,
@@ -112,14 +104,14 @@ callbackAjoutVideo = (err, videoq, video, filter, res) => {
                 return;
             }
             console.log(videoCreated);
-            addVideoToPlaylist(filter, videoCreated._id, res);
+            addVideoToPlaylist(filter, videoCreated.url, res);
         });
     }
 }
 
 createVideoIfNotExist = (filter, video, res) => {
     Video.findOne({url: video.url}, (err, videoq) => {
-        callbacktest(err, videoq, video, filter, res)
+        callbackAjoutVideo(err, videoq, video, filter, res)
     });
 }
 
@@ -143,7 +135,6 @@ exports.addVideo = (req, res) => {
 
 
 exports.addVideoToMaPlaylist = (req, res) => {
-    console.log("addind video to ma playlist");
     let jwt = jwt_decode(req.headers["x-access-token"]);
     const filter = {user: jwt.id, name: "ma playlist"};
 

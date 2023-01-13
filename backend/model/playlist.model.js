@@ -9,8 +9,8 @@ const PlaylistSchema = new mongoose.Schema({
     },
     videos:[
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Video"
+            type: String,
+            ref: "Video.url"
         }
     ]
 })
