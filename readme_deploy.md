@@ -24,3 +24,8 @@ Bien choisir NodeJS 18.04 LTS
 Dans les parametres généraux, de la configuration de l'App Service, ajouter une commande de démarrage:
 ```node index.js```
 
+### La base de données
+Créer un compte sur MongoDD Atlas ou tout autre hébergeur de bd mongoDB pour créer une base
+Pour mongoDB Atlas : 
+- dans un cluster créer ne colletion wishtube qui servira a accueillur toute la bdd
+- dans config/db.config.js changer l'host pour l'URL du cluster (obtenable via le bouton connect sur mongodb atlas)
