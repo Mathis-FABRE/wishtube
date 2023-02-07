@@ -2,6 +2,7 @@ const config = require("../config/auth.config");
 const db = require("../model");
 const User = db.user;
 const Role = db.role;
+const {FirstPlaylist} = require("./playlist.controller");
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -18,6 +19,8 @@ exports.signup = (req, res) => {
             res.status(500).send({ message: err });
             return;
         }
+
+        FirstPlaylist(user._id); // creer une playlist par défaut
 
         if (req.body.roles) {
             Role.find(

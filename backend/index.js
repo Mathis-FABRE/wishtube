@@ -23,6 +23,7 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/video.routes')(app);
 require('./routes/annonce.routes')(app);
+require('./routes/playlist.routes')(app);
 
 
 const PORT = process.env.PORT || 1337;
@@ -47,7 +48,7 @@ db.mongoose
         // console.log(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`);
         // prod
         console.log(`mongodb+srv://${dbConfig.HOST}/${dbConfig.DB}`);
-        
+
         console.error("Connection error", err);
         process.exit();
     });

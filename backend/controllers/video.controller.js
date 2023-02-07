@@ -1,4 +1,6 @@
 const videoService = require('../services/video.service');
+const db = require("../model");
+const videodb = db.video;
 
 exports.getYoutubeList =  async (req, res, callback) => {
     await videoService.getYoutubeList(req.body.term, req.body.maxRes,
@@ -12,4 +14,47 @@ exports.getDailymotionList = async (req, res, callback) => {
         (result) => {
             callback(result)
         });
+}
+
+exports.videoExists = (req, res) => {
+    const filter = {url: req.body.url};
+    videodb.exists({url: filter.url}, (err, result) => {
+        if (err) {
+            res.status(500).send({err: err});
+        }
+        else {
+            res.send({message: result})
+        }
+    })
+}
+
+exports.getIdIfExist = (req, res) => {
+    videodb.find({url: req.body.url}, (err, video) => {
+        if (err){
+            res.status(500).send({message: err});
+        }
+        else if (video) {
+            res.send({message: video._id});
+        }
+        else {
+            res.send({message: null});
+        }
+    })
+}
+
+exports.createVideo = (req, res) => {
+    let video = new videodb({
+        url: req.body.url,
+        thumbnail: req.body.thumbnail,
+        name: req.body.name,
+        author: req.body.author
+    })
+
+    video.save(err => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+        res.send({ message: "Video was submited successfully!" });
+    })
 }
