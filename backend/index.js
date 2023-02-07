@@ -48,7 +48,7 @@ db.mongoose
         // console.log(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`);
         // prod
         console.log(`mongodb+srv://${dbConfig.HOST}/${dbConfig.DB}`);
-        
+
         console.error("Connection error", err);
         process.exit();
     });

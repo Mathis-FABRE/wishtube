@@ -35,4 +35,14 @@ export class PlaylistService {
       author
     }, httpOptions);
   }
+
+  deleteVideoFromMaPlaylist(url: String): Observable<any> {
+    return this.http.post(PLAYLIST + "deleteFromMaPlaylist", {
+      url
+    })
+  }
+
+  getMaPlaylist(): Observable<any>{
+    return this.http.get(PLAYLIST + "getMaPlaylist");
+  }
 }

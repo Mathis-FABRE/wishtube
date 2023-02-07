@@ -15,10 +15,16 @@ export class PlaylistButtonComponent implements OnInit{
 
   addToMaPlaylist() {
     this.playlistService.addVideoToMaPlaylist(this.video).subscribe(data => {
-      console.log(data);
-      this.isInPlaylist = true;
+      if(data)
+        this.isInPlaylist = true;
     });
+  }
 
+  deleteFromMaPlaylist() {
+    this.playlistService.deleteVideoFromMaPlaylist(this.video.Url).subscribe(data => {
+      if(data)
+        this.isInPlaylist = false
+    })
   }
 
   ngOnInit() {

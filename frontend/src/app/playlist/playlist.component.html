@@ -1,0 +1,7 @@
+<div class="w-100 p-5">
+  <h3 class="bi-text-left text-decoration-underline">Ma playlist</h3>
+  <div class="container" *ngFor="let video of videos">
+    <app-video-playlist (videoEmitter)="sendVideo($event)" [video]="video"></app-video-playlist>
+  </div>
+</div>
+

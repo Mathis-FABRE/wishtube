@@ -64,7 +64,6 @@ exports.videoInUser = (req, res) => {
     let jwt = jwt_decode(req.headers["x-access-token"]);
     Playlist.find({user: jwt.id}, {_id: 0, videos: 1},(err, videosList) => {
         const result = callbackPlaylist(err, videosList, req.body.url, res);
-        console.log(result);
         res.send({message: result});
     });
 }
@@ -103,7 +102,6 @@ callbackAjoutVideo = (err, videoq, video, filter, res) => {
                 res.status(500).send({ message: err });
                 return;
             }
-            console.log(videoCreated);
             addVideoToPlaylist(filter, videoCreated.url, res);
         });
     }
@@ -156,6 +154,21 @@ exports.addVideoToMaPlaylist = (req, res) => {
     createVideoIfNotExist(filter, video, res);
 };
 
+exports.deleteFromMaPlaylist = (req, res) => {
+    let jwt = jwt_decode(req.headers["x-access-token"]);
+    Playlist.updateOne(
+        {user: jwt.id, name: "ma playlist"},
+        { $pull: { videos: req.body.url } },
+        (err, playlist) => {
+            if(err){
+                res.status(500).send({message: err});
+                return;
+            }
+            res.send({message: playlist});
+        }
+    );
+}
+
 exports.deleteFromPlaylist = (req, res) => {
     Playlist.update(
         {_id: req.body.idPlaylist},
@@ -168,4 +181,26 @@ exports.deleteFromPlaylist = (req, res) => {
             res.send({message: playlist});
         }
     );
+}
+
+extractVideos = (res, err, videos) => {
+    if(err){
+        res.status(500).send({message: err});
+        return;
+    }
+    Video.find({url: {$in: videos}}, (err, result) => {
+        if(err){
+            res.status(500).send({message: err});
+            return;
+        }
+        console.log(result)
+        res.send(result);
+    })
+}
+
+exports.getVideosMaPlaylist = (req, res) => {
+    let jwt = jwt_decode(req.headers["x-access-token"]);
+    Playlist.findOne({user: jwt.id, name: "ma playlist"}, (err, videos) => {
+        extractVideos(res, err, videos.videos)
+    })
 }

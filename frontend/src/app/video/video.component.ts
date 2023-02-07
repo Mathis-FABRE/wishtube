@@ -8,10 +8,12 @@ import {TokenStorageService} from "../_services/token-storage.service";
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.scss']
 })
+
 export class VideoComponent implements OnInit{
   @Input() video: any;
   trustedUrl: SafeUrl = "";
   isLoggedIn: boolean = false;
+  videoTitle: string = "";
 
   constructor(private modalService: NgbModal, private sanitizer: DomSanitizer, private tokenStorageService: TokenStorageService) {
   }
@@ -22,6 +24,12 @@ export class VideoComponent implements OnInit{
   }
 
   showModal(content: any){
+    this.videoTitle = this.video.Title;
     this.modalService.open(content, { size:"xl", centered: true })
+  }
+
+  readVideo(data: any){
+    this.videoTitle = data.title;
+    this.trustedUrl = data.url;
   }
 }

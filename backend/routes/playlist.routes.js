@@ -29,4 +29,12 @@ module.exports = function(app) {
     app.post("/api/playlist/addVideoToMaPlaylist",
         [authJwt.verifyToken],
         controller.addVideoToMaPlaylist);
+
+    app.post("/api/playlist/deleteFromMaPlaylist",
+        [authJwt.verifyToken],
+        controller.deleteFromMaPlaylist);
+
+    app.get("/api/playlist/getMaPlaylist",
+        [authJwt.verifyToken],
+        controller.getVideosMaPlaylist);
 };
